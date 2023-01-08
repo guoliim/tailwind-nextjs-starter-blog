@@ -7,7 +7,7 @@ const colors = require('tailwindcss/colors')
 /** @type {import("tailwindcss/tailwind-config").TailwindConfig } */
 module.exports = {
   mode: 'jit',
-  purge: ['./pages/**/*.tsx', './components/**/*.tsx', './layouts/**/*.tsx', './lib/**/*.ts'],
+  content: ['./pages/**/*.tsx', './components/**/*.tsx', './layouts/**/*.tsx', './lib/**/*.ts'],
   darkMode: 'class',
   theme: {
     extend: {
@@ -25,7 +25,7 @@ module.exports = {
       },
       colors: {
         primary: colors.blue,
-        gray: colors.trueGray,
+        gray: colors.neutral,
       },
       typography: (theme) => ({
         DEFAULT: {
