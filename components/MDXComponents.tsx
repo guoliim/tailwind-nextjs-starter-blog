@@ -1,52 +1,16 @@
-/* eslint-disable react/display-name */
-import React, { useMemo } from 'react'
-import { getMDXComponent } from 'mdx-bundler/client'
+import TOCInline from 'pliny/ui/TOCInline'
+import Pre from 'pliny/ui/Pre'
+import BlogNewsletterForm from 'pliny/ui/BlogNewsletterForm'
+import type { MDXComponents } from 'mdx/types'
 import Image from './Image'
 import CustomLink from './Link'
-import TOCInline from './TOCInline'
-import Pre from './Pre'
-import { BlogNewsletterForm } from './NewsletterForm'
-import PostLayout from '@/layouts/PostLayout'
-import AuthorLayout from '@/layouts/AuthorLayout'
-import ListLayout from '@/layouts/ListLayout'
-import PostSimple from '@/layouts/PostSimple'
+import TableWrapper from './TableWrapper'
 
-const Wrapper: React.ComponentType<{ layout: string }> = ({ layout, ...rest }) => {
-  switch (layout) {
-    case 'PostLayout':
-      // @ts-ignore
-      return <PostLayout {...rest} />
-    case 'AuthorLayout':
-      // @ts-ignore
-      return <AuthorLayout {...rest} />
-    case 'ListLayout':
-      // @ts-ignore
-      return <ListLayout {...rest} />
-    case 'PostSimple':
-      // @ts-ignore
-      return <PostSimple {...rest} />
-  }
-}
-
-export const MDXComponents = {
+export const components: MDXComponents = {
   Image,
-  //@ts-ignore
   TOCInline,
   a: CustomLink,
   pre: Pre,
-  wrapper: Wrapper,
-  //@ts-ignore
+  table: TableWrapper,
   BlogNewsletterForm,
-}
-
-interface Props {
-  layout: string
-  mdxSource: string
-  [key: string]: unknown
-}
-
-export const MDXLayoutRenderer = ({ layout, mdxSource, ...rest }: Props) => {
-  const MDXLayout = useMemo(() => getMDXComponent(mdxSource), [mdxSource])
-
-  return <MDXLayout layout={layout} components={MDXComponents} {...rest} />
 }
