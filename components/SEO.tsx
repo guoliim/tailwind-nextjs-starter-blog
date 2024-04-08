@@ -108,8 +108,8 @@ export const BlogSEO = ({
     images.length === 0
       ? [siteMetadata.socialBanner]
       : typeof images === 'string'
-      ? [images]
-      : images
+        ? [images]
+        : images
 
   const featuredImages = imagesArr.map((img) => {
     return {
@@ -162,7 +162,7 @@ export const BlogSEO = ({
     <>
       <CommonSEO
         title={title}
-        description={summary}
+        description={summary as string}
         ogType="article"
         ogImage={featuredImages}
         twImage={twImageUrl}

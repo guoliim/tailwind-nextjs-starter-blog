@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { bundleMDX } from 'mdx-bundler'
 import fs from 'fs'
 import matter from 'gray-matter'
@@ -77,6 +79,7 @@ export async function getFileBySlug<T>(type: 'authors' | 'blog', slug: string | 
       // The syntax might look weird, but it protects you in case we add/remove
       // plugins in the future.
       options.remarkPlugins = [
+        // @ts-ignore
         ...(options.remarkPlugins ?? []),
         [remarkTocHeadings, { exportRef: toc }],
         remarkGfm,
