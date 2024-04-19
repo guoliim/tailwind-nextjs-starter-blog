@@ -1,0 +1,131 @@
+---
+title: 使用 WARP 代理 google 检测为非本地位置 IP
+date: '2024-04-19'
+tags: ['warp', 'google', 'ip']
+draft: false
+---
+
+### 安装 warp-cli
+
+1. 安装 [Cloudflare WARP packages](https://pkg.cloudflareclient.com/)
+2. 注册 `warp-cli registration new`
+3. 修改warp-cli运行模式 `warp-cli set-mode proxy`
+4. 设置监听端口：`warp-cli set-proxy-port 1080`
+5. 链接 `warp-cli connect` **注意要改为 proxy 模式后在链接避免 warp 修改默认路由**
+6. 查看当前warp的IP `curl -4 ip.gs -x socks5://127.0.0.1:1080`
+
+### google 分流以 singbox-ss 为例
+
+1. 按转 singbox
+
+   仓库安装 Debian/APT
+
+   ```bash Debian/APT
+   sudo curl -fsSL https://sing-box.app/gpg.key -o /etc/apt/keyrings/sagernet.asc
+   sudo chmod a+r /etc/apt/keyrings/sagernet.asc
+   echo "deb [arch=`dpkg --print-architecture` signed-by=/etc/apt/keyrings/sagernet.asc] https://deb.sagernet.org/ * *" | \
+     sudo tee /etc/apt/sources.list.d/sagernet.list > /dev/null
+   sudo apt-get update
+   sudo apt-get install sing-box # or sing-box-beta
+   ```
+
+2. 设置 sing-box server config
+
+   ```json
+   {
+     "inbounds": [
+       {
+         "type": "shadowsocks",
+         "tag": "ss-in",
+         "listen": "::",
+         "listen_port": 2080,
+         "method": "chacha20-ietf-poly1305",
+         "password": "xxxxxxxxxxxx"
+       }
+     ],
+     "outbounds": [
+       {
+         "type": "socks",
+         "tag": "socks-out",
+         "server": "127.0.0.1",
+         "server_port": 1080,
+         "version": "5"
+       },
+       {
+         "type": "direct",
+         "tag": "direct-out"
+       }
+     ],
+     "route": {
+       "rules": [
+         {
+           "domain_suffix": ["google.com", "gmail.com"],
+           "outbound": "socks-out"
+         },
+         {
+           "domain_keyword": ["gemini"],
+           "outbound": "socks-out"
+         },
+         {
+           "rule_set": "geoip-google",
+           "outbound": "socks-out"
+         },
+         {
+           "rule_set": "youTube",
+           "outbound": "socks-out"
+         }
+       ],
+       "rule_set": [
+         {
+           "type": "remote",
+           "tag": "geoip-google",
+           "format": "binary",
+           "url": "https://raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/singbox_ip_rule_set/geoip-google.srs",
+           "download_detour": "direct-out"
+         },
+         {
+           "type": "remote",
+           "tag": "youTube",
+           "format": "source",
+           "url": "https://raw.githubusercontent.com/yangchuansheng/sing-box-geosite/main/rule/YouTube.json",
+           "download_detour": "direct-out"
+         }
+       ],
+       "final": "direct-out",
+       "auto_detect_interface": true
+     }
+   }
+   ```
+
+3. 服务管理
+
+   1. 启用 `sudo systemctl enable sing-box`
+   2. 禁用 `sudo systemctl disable sing-box`
+   3. 启动 `sudo systemctl start sing-box`
+   4. 停止 `sudo systemctl stop sing-box`
+   5. 强行停止 `sudo systemctl kill sing-box`
+   6. 重新启动 `sudo systemctl restart sing-box`
+   7. 查看日志 `sudo journalctl -u sing-box --output cat -e`
+   8. 实时日志 `sudo journalctl -u sing-box --output cat -f`
+
+#### 参考
+
+[CloudFlare官方WARP客户端解锁Netflix](https://yushum.com/archives/405)
+
+[用 Cloudflare Warp 彻底解决 Google IP 定位中国的问题](https://www.v2ex.com/t/800581)
+
+[流媒体解锁进阶篇-1：Youtube位置修正](https://cutenico.best/posts/blogs/cloudflare-warp-fixed-youtube-location/)
+
+[WARP Linux desktop client](https://developers.cloudflare.com/warp-client/get-started/linux/)
+
+[singbox](https://sing-box.sagernet.org/zh/configuration/)
+
+[sing-box 基础教程：sing-box 的配置方法和使用教程](https://icloudnative.io/posts/sing-box-tutorial/#%E5%87%BA%E7%AB%99%E9%85%8D%E7%BD%AE)
+
+[sing-box-geosite](https://github.com/Toperlock/sing-box-geosite)
+
+[sing-box-yes](https://github.com/FranzKafkaYu/sing-box-yes)
+
+[sing-box-examples](https://github.com/chika0801/sing-box-examples)
+
+[singbox_ip_rule_set](https://github.com/CHIZI-0618/v2ray-rules-dat/tree/release/singbox_ip_rule_set)
