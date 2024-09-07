@@ -1,0 +1,71 @@
+---
+title: 给 hy2 添加端口跳跃
+date: '2024-09-07'
+tags: ['hy2', 'port hopping']
+draft: false
+---
+
+### 安装 nftables
+
+```bash
+sudo apt-get install nftables
+```
+
+### 配置 nftables
+
+```bash
+sudo nano /etc/nftables.conf
+```
+
+```text
+#!/usr/sbin/nft -f
+
+define HY2_UDP_PORT = {
+        X000-Y001,
+}
+define HY2_SERVER_PORT = YOUR_HY2_PORT
+
+table inet hysteria_porthopping
+delete table inet hysteria_porthopping
+
+table inet hysteria_porthopping {
+        chain prerouting {
+                type nat hook prerouting priority dstnat; policy accept;
+                meta l4proto udp udp dport $HY2_UDP_PORT redirect to :$HY2_SERVER_PORT
+        }
+}
+```
+
+### 检测配置
+
+```bash
+sudo nft -c -f /etc/nftables.conf
+```
+
+### 重启 nftables       
+
+```bash
+sudo systemctl restart nftables
+```
+
+### 查看 nftables 状态
+
+```bash
+sudo systemctl status nftables
+```
+
+### 在 surge 中配置 hy2 端口跳跃
+
+```config
+hysteria2, YOUR_HY2_IP, YOUR_HY2_PORT, password=YOUR_HY2_PASSWORD, download-bandwidth=100, sni=YOUR_HY2_DOMAIN, port-hopping=YOUR_HY2_PORT_RANGE, port-hopping-interval=30
+```
+
+### 检测是否生效
+
+```bash
+sudo nft list table inet hysteria_porthopping
+```
+
+```bash
+sudo tcpdump -i eth0 udp and portrange YOUR_HY2_PORT_RANGE or port YOUR_HY2_PORT -nn
+```
