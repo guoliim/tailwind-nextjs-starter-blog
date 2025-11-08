@@ -7,9 +7,9 @@ const siteMetadata = {
   theme: 'system', // system, dark or light
   siteUrl: 'https://blog.guoli.im',
   siteRepo: 'https://github.com/guoliim/tailwind-nextjs-starter-blog',
-  siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.png`,
-  image: '/static/images/avatar.png',
-  socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
+  siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo-60x60.svg`,
+  image: '/static/images/avatar-60x60.svg',
+  socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card-60x60.svg`,
   mastodon: 'https://mastodon.social/@mastodonuser',
   email: 'guoliim@outlook.com',
   //   github: 'https://github.com',
