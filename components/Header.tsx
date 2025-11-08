@@ -1,50 +1,78 @@
 import siteMetadata from '@/data/siteMetadata'
 import headerNavLinks from '@/data/headerNavLinks'
-// import Logo from '@/data/logo.svg'
+import Logo from '@/data/logo-60x60.svg'
 import Link from './Link'
 import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
 import SearchButton from './SearchButton'
-import Image from './Image'
 
 const Header = () => {
+  let headerClass = 'flex items-center w-full justify-between'
+  if (siteMetadata.stickyNav) {
+    headerClass += ' sticky top-0 z-50'
+  }
+
   return (
-    <header className="flex items-center justify-between py-10">
-      <div>
-        <Link href="/" aria-label={siteMetadata.headerTitle}>
-          <div className="flex items-center justify-between">
-            <div className="mr-3">
-              {/* <Logo /> */}
-              <Image
-                src="/static/images/logo.png"
-                alt="logo"
-                width={80}
-                height={80}
-                className="rounded-full"
-              />
-            </div>
-            {typeof siteMetadata.headerTitle === 'string' ? (
-              <div className="hidden h-6 text-2xl font-semibold sm:block">
-                {siteMetadata.headerTitle}
-              </div>
-            ) : (
-              siteMetadata.headerTitle
-            )}
+    <header
+      className={headerClass}
+      style={{
+        backgroundColor: 'var(--color-surface-base)',
+        paddingTop: 'var(--spacing-10)',
+        paddingBottom: 'var(--spacing-10)',
+      }}
+    >
+      <Link href="/" aria-label={siteMetadata.headerTitle}>
+        <div className="flex items-center justify-between">
+          <div style={{ marginRight: 'var(--spacing-3)' }}>
+            <Logo />
           </div>
-        </Link>
-      </div>
-      <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
-        {headerNavLinks
-          .filter((link) => link.href !== '/')
-          .map((link) => (
-            <Link
-              key={link.title}
-              href={link.href}
-              className="hidden font-medium text-gray-900 dark:text-gray-100 sm:block"
+          {typeof siteMetadata.headerTitle === 'string' ? (
+            <div
+              className="hidden h-6 sm:block"
+              style={{
+                fontSize: 'var(--font-size-2xl)',
+                fontWeight: 'var(--font-weight-semibold)',
+                color: 'var(--color-text-primary)',
+              }}
             >
-              {link.title}
-            </Link>
-          ))}
+              {siteMetadata.headerTitle}
+            </div>
+          ) : (
+            siteMetadata.headerTitle
+          )}
+        </div>
+      </Link>
+      <div
+        className="flex items-center sm:-mr-6"
+        style={{
+          gap: 'var(--spacing-4)',
+          lineHeight: 'var(--leading-normal)',
+        }}
+      >
+        <div
+          className="no-scrollbar hidden items-center overflow-x-auto sm:flex"
+          style={{
+            gap: 'var(--spacing-4)',
+            maxWidth: '10rem',
+          }}
+        >
+          {headerNavLinks
+            .filter((link) => link.href !== '/')
+            .map((link) => (
+              <Link
+                key={link.title}
+                href={link.href}
+                className="transition-colors-fast"
+                style={{
+                  margin: 'var(--spacing-1)',
+                  fontWeight: 'var(--font-weight-medium)',
+                  color: 'var(--color-text-primary)',
+                }}
+              >
+                {link.title}
+              </Link>
+            ))}
+        </div>
         <SearchButton />
         <ThemeSwitch />
         <MobileNav />

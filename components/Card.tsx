@@ -2,11 +2,14 @@ import Image from './Image'
 import Link from './Link'
 
 const Card = ({ title, description, imgSrc, href }) => (
-  <div className="md max-w-[544px] p-4 md:w-1/2">
+  <div className="md max-w-[544px] md:w-1/2" style={{ padding: 'var(--spacing-4)' }}>
     <div
-      className={`${
-        imgSrc && 'h-full'
-      }  overflow-hidden rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700`}
+      className={`${imgSrc && 'h-full'} transition-all-normal overflow-hidden`}
+      style={{
+        borderRadius: 'var(--radius-lg)',
+        border: '1px solid var(--color-border-subtle)',
+        boxShadow: 'var(--shadow-sm)',
+      }}
     >
       {imgSrc &&
         (href ? (
@@ -28,8 +31,14 @@ const Card = ({ title, description, imgSrc, href }) => (
             height={306}
           />
         ))}
-      <div className="p-6">
-        <h2 className="mb-3 text-2xl font-bold leading-8 tracking-tight">
+      <div style={{ padding: 'var(--spacing-component-lg)' }}>
+        <h2
+          className="typography-h5"
+          style={{
+            marginBottom: 'var(--spacing-3)',
+            color: 'var(--color-text-primary)',
+          }}
+        >
           {href ? (
             <Link href={href} aria-label={`Link to ${title}`}>
               {title}
@@ -38,11 +47,19 @@ const Card = ({ title, description, imgSrc, href }) => (
             title
           )}
         </h2>
-        <p className="prose mb-3 max-w-none text-gray-500 dark:text-gray-400">{description}</p>
+        <p className="prose mb-3 max-w-none" style={{ color: 'var(--color-text-secondary)' }}>
+          {description}
+        </p>
         {href && (
           <Link
             href={href}
-            className="text-base font-medium leading-6 text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+            className="transition-colors-fast"
+            style={{
+              color: 'var(--color-text-link)',
+              fontSize: 'var(--font-size-base)',
+              lineHeight: 'var(--leading-normal)',
+              fontWeight: 'var(--font-weight-medium)',
+            }}
             aria-label={`Link to ${title}`}
           >
             Learn more &rarr;
