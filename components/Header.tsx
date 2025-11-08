@@ -7,20 +7,34 @@ import ThemeSwitch from './ThemeSwitch'
 import SearchButton from './SearchButton'
 
 const Header = () => {
-  let headerClass = 'flex items-center w-full bg-white dark:bg-gray-950 justify-between py-10'
+  let headerClass = 'flex items-center w-full justify-between'
   if (siteMetadata.stickyNav) {
     headerClass += ' sticky top-0 z-50'
   }
 
   return (
-    <header className={headerClass}>
+    <header
+      className={headerClass}
+      style={{
+        backgroundColor: 'var(--color-surface-base)',
+        paddingTop: 'var(--spacing-10)',
+        paddingBottom: 'var(--spacing-10)',
+      }}
+    >
       <Link href="/" aria-label={siteMetadata.headerTitle}>
         <div className="flex items-center justify-between">
-          <div className="mr-3">
+          <div style={{ marginRight: 'var(--spacing-3)' }}>
             <Logo />
           </div>
           {typeof siteMetadata.headerTitle === 'string' ? (
-            <div className="hidden h-6 text-2xl font-semibold sm:block">
+            <div
+              className="hidden h-6 sm:block"
+              style={{
+                fontSize: 'var(--font-size-2xl)',
+                fontWeight: 'var(--font-weight-semibold)',
+                color: 'var(--color-text-primary)',
+              }}
+            >
               {siteMetadata.headerTitle}
             </div>
           ) : (
@@ -28,15 +42,32 @@ const Header = () => {
           )}
         </div>
       </Link>
-      <div className="flex items-center space-x-4 leading-5 sm:-mr-6 sm:space-x-6">
-        <div className="no-scrollbar hidden max-w-40 items-center gap-x-4 overflow-x-auto sm:flex md:max-w-72 lg:max-w-96">
+      <div
+        className="flex items-center sm:-mr-6"
+        style={{
+          gap: 'var(--spacing-4)',
+          lineHeight: 'var(--leading-normal)',
+        }}
+      >
+        <div
+          className="no-scrollbar hidden items-center overflow-x-auto sm:flex"
+          style={{
+            gap: 'var(--spacing-4)',
+            maxWidth: '10rem',
+          }}
+        >
           {headerNavLinks
             .filter((link) => link.href !== '/')
             .map((link) => (
               <Link
                 key={link.title}
                 href={link.href}
-                className="hover:text-primary-500 dark:hover:text-primary-400 m-1 font-medium text-gray-900 dark:text-gray-100"
+                className="transition-colors-fast"
+                style={{
+                  margin: 'var(--spacing-1)',
+                  fontWeight: 'var(--font-weight-medium)',
+                  color: 'var(--color-text-primary)',
+                }}
               >
                 {link.title}
               </Link>

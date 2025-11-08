@@ -5,8 +5,11 @@ import SocialIcon from '@/components/social-icons'
 export default function Footer() {
   return (
     <footer>
-      <div className="mt-16 flex flex-col items-center">
-        <div className="mb-3 flex space-x-4">
+      <div
+        className="flex flex-col items-center"
+        style={{ marginTop: 'var(--spacing-section-md)' }}
+      >
+        <div className="flex" style={{ marginBottom: 'var(--spacing-3)', gap: 'var(--spacing-4)' }}>
           <SocialIcon kind="mail" href={`mailto:${siteMetadata.email}`} size={6} />
           <SocialIcon kind="github" href={siteMetadata.github} size={6} />
           <SocialIcon kind="facebook" href={siteMetadata.facebook} size={6} />
@@ -20,14 +23,28 @@ export default function Footer() {
           <SocialIcon kind="medium" href={siteMetadata.medium} size={6} />
           <SocialIcon kind="rss" href={siteMetadata.rss} size={6} />
         </div>
-        <div className="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-400">
+        <div
+          className="flex"
+          style={{
+            marginBottom: 'var(--spacing-2)',
+            gap: 'var(--spacing-2)',
+            fontSize: 'var(--font-size-sm)',
+            color: 'var(--color-text-secondary)',
+          }}
+        >
           <div>{siteMetadata.author}</div>
           <div>{` • `}</div>
           <div>{`© ${new Date().getFullYear()}`}</div>
           <div>{` • `}</div>
           <Link href="/">{siteMetadata.title}</Link>
         </div>
-        <div className="mb-8 text-sm text-gray-500 dark:text-gray-400">
+        <div
+          style={{
+            marginBottom: 'var(--spacing-8)',
+            fontSize: 'var(--font-size-sm)',
+            color: 'var(--color-text-secondary)',
+          }}
+        >
           <Link href="https://github.com/timlrx/tailwind-nextjs-starter-blog">
             based on Tailwind Nextjs Theme
           </Link>
