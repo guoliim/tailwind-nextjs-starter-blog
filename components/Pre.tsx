@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useRef, ReactNode } from 'react'
 
 interface Props {
@@ -31,11 +33,13 @@ const Pre = ({ children }: Props) => {
         <button
           aria-label="Copy code"
           type="button"
-          className={`absolute top-2 right-2 h-8 w-8 rounded border-2 bg-gray-700 p-1 dark:bg-gray-800 ${
-            copied
-              ? 'border-green-400 focus:border-green-400 focus:outline-none'
-              : 'border-gray-300'
-          }`}
+          className="glass-subtle absolute top-2 right-2 h-8 w-8 p-1 transition-all duration-200"
+          style={{
+            borderRadius: 'var(--radius-sm)',
+            border: copied
+              ? '2px solid var(--color-success)'
+              : '1px solid var(--glass-border-light)',
+          }}
           onClick={onCopy}
         >
           <svg

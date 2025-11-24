@@ -9,7 +9,13 @@ export default function Footer() {
         className="flex flex-col items-center"
         style={{ marginTop: 'var(--spacing-section-md)' }}
       >
-        <div className="flex" style={{ marginBottom: 'var(--spacing-3)', gap: 'var(--spacing-4)' }}>
+        {/* Simple social icons layout */}
+        <div
+          className="mb-6 flex"
+          style={{
+            gap: 'var(--spacing-4)',
+          }}
+        >
           <SocialIcon kind="mail" href={`mailto:${siteMetadata.email}`} size={6} />
           <SocialIcon kind="github" href={siteMetadata.github} size={6} />
           <SocialIcon kind="facebook" href={siteMetadata.facebook} size={6} />

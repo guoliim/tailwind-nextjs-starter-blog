@@ -4,11 +4,10 @@ import Link from './Link'
 const Card = ({ title, description, imgSrc, href }) => (
   <div className="md max-w-[544px] md:w-1/2" style={{ padding: 'var(--spacing-4)' }}>
     <div
-      className={`${imgSrc && 'h-full'} transition-all-normal overflow-hidden`}
+      className={`${imgSrc && 'h-full'} hover:glass-subtle overflow-hidden transition-all duration-300`}
       style={{
-        borderRadius: 'var(--radius-lg)',
-        border: '1px solid var(--color-border-subtle)',
-        boxShadow: 'var(--shadow-sm)',
+        backgroundColor: 'transparent',
+        border: '1px solid transparent',
       }}
     >
       {imgSrc &&

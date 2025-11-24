@@ -61,29 +61,21 @@ const MobileNav = () => {
             leaveTo="opacity-0"
             unmount={false}
           >
-            <div
-              className="fixed inset-0 z-60"
-              style={{ backgroundColor: 'var(--color-surface-overlay)' }}
-            />
+            {/* Backdrop with glass blur effect */}
+            <div className="fixed inset-0 z-60" style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }} />
           </TransitionChild>
 
           <TransitionChild
             as={Fragment}
             enter="transition ease-in-out duration-300 transform"
             enterFrom="translate-x-full opacity-0"
-            enterTo="translate-x-0 opacity-95"
+            enterTo="translate-x-0 opacity-100"
             leave="transition ease-in duration-200 transform"
-            leaveFrom="translate-x-0 opacity-95"
+            leaveFrom="translate-x-0 opacity-100"
             leaveTo="translate-x-full opacity-0"
             unmount={false}
           >
-            <DialogPanel
-              className="fixed top-0 left-0 z-70 h-full w-full duration-300"
-              style={{
-                backgroundColor: 'var(--color-surface-base)',
-                opacity: 0.95,
-              }}
-            >
+            <DialogPanel className="glass-strong fixed top-0 left-0 z-70 h-full w-full duration-300">
               <nav
                 ref={navRef}
                 className="flex h-full basis-0 flex-col items-start overflow-y-auto text-left"
@@ -116,12 +108,15 @@ const MobileNav = () => {
               </nav>
 
               <button
-                className="transition-colors-fast fixed z-80 h-16 w-16"
+                className="glass-subtle fixed z-80 transition-all duration-200"
                 style={{
                   top: 'var(--spacing-7)',
                   right: 'var(--spacing-4)',
                   padding: 'var(--spacing-4)',
                   color: 'var(--color-text-primary)',
+                  borderRadius: 'var(--radius-md)',
+                  width: '3.5rem',
+                  height: '3.5rem',
                 }}
                 aria-label="Toggle Menu"
                 onClick={onToggleNav}

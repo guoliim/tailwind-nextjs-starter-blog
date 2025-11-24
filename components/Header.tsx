@@ -12,15 +12,25 @@ const Header = () => {
     headerClass += ' sticky top-0 z-50'
   }
 
-  return (
-    <header
-      className={headerClass}
-      style={{
+  // Light mode: semi-transparent white with subtle blur
+  // Dark mode: handled by CSS custom properties
+  const headerStyle = siteMetadata.stickyNav
+    ? {
         backgroundColor: 'var(--color-surface-base)',
-        paddingTop: 'var(--spacing-10)',
-        paddingBottom: 'var(--spacing-10)',
-      }}
-    >
+        backdropFilter: 'blur(8px)',
+        WebkitBackdropFilter: 'blur(8px)',
+        paddingTop: 'var(--spacing-4)',
+        paddingBottom: 'var(--spacing-4)',
+        borderBottom: '1px solid var(--color-border-subtle)',
+      }
+    : {
+        backgroundColor: 'var(--color-surface-base)',
+        paddingTop: 'var(--spacing-4)',
+        paddingBottom: 'var(--spacing-4)',
+      }
+
+  return (
+    <header className={headerClass} style={headerStyle}>
       <Link href="/" aria-label={siteMetadata.headerTitle}>
         <div className="flex items-center justify-between">
           <div style={{ marginRight: 'var(--spacing-3)' }}>
@@ -52,7 +62,7 @@ const Header = () => {
         <div
           className="no-scrollbar hidden items-center overflow-x-auto sm:flex"
           style={{
-            gap: 'var(--spacing-4)',
+            gap: 'var(--spacing-6)',
             maxWidth: '10rem',
           }}
         >
@@ -62,11 +72,12 @@ const Header = () => {
               <Link
                 key={link.title}
                 href={link.href}
-                className="transition-colors-fast"
+                className="hover:text-primary-500 transition-colors duration-200"
                 style={{
-                  margin: 'var(--spacing-1)',
-                  fontWeight: 'var(--font-weight-medium)',
+                  fontWeight: 'var(--font-weight-normal)',
                   color: 'var(--color-text-primary)',
+                  fontSize: 'var(--font-size-sm)',
+                  whiteSpace: 'nowrap',
                 }}
               >
                 {link.title}
