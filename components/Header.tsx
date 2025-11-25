@@ -6,27 +6,36 @@ import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
 import SearchButton from './SearchButton'
 
+/**
+ * Header 组件 - Liquid Glass 轻微风格
+ *
+ * 设计参考：
+ * - ip.skk.moe: 胶囊导航、轻微模糊、细边框
+ * - iOS 26 Liquid Glass: 半透明背景 + saturate
+ * - WWDC 2025: 统一的圆角系统
+ */
 const Header = () => {
-  let headerClass = 'flex items-center w-full justify-between'
+  // 基础类名
+  let headerClass = 'flex items-center w-full justify-between transition-all duration-300'
   if (siteMetadata.stickyNav) {
     headerClass += ' sticky top-0 z-50'
   }
 
-  // Light mode: semi-transparent white with subtle blur
-  // Dark mode: handled by CSS custom properties
+  // Liquid Glass 轻微风格 - 参考 ip.skk.moe（极简，无 border/shadow）
+  // 使用 CSS 变量确保 dark mode 自动适配
   const headerStyle = siteMetadata.stickyNav
     ? {
-        backgroundColor: 'var(--color-surface-base)',
-        backdropFilter: 'blur(8px)',
-        WebkitBackdropFilter: 'blur(8px)',
-        paddingTop: 'var(--spacing-4)',
-        paddingBottom: 'var(--spacing-4)',
-        borderBottom: '1px solid var(--color-border-subtle)',
+        // Liquid Glass 效果 - 轻微模糊 + 饱和度增强
+        backgroundColor: 'var(--glass-bg-light)',
+        backdropFilter: 'blur(var(--glass-blur-md)) saturate(180%)',
+        WebkitBackdropFilter: 'blur(var(--glass-blur-md)) saturate(180%)',
+        // 内边距
+        padding: 'var(--spacing-3) var(--spacing-4)',
+        // 移除 border 和 shadow - 参考 ip.skk.moe 极简风格
       }
     : {
         backgroundColor: 'var(--color-surface-base)',
-        paddingTop: 'var(--spacing-4)',
-        paddingBottom: 'var(--spacing-4)',
+        padding: 'var(--spacing-4)',
       }
 
   return (
@@ -40,9 +49,10 @@ const Header = () => {
             <div
               className="hidden h-6 sm:block"
               style={{
-                fontSize: 'var(--font-size-2xl)',
+                fontSize: 'var(--font-size-xl)',
                 fontWeight: 'var(--font-weight-semibold)',
                 color: 'var(--color-text-primary)',
+                letterSpacing: 'var(--tracking-tight)',
               }}
             >
               {siteMetadata.headerTitle}
@@ -53,17 +63,18 @@ const Header = () => {
         </div>
       </Link>
       <div
-        className="flex items-center sm:-mr-6"
+        className="flex items-center"
         style={{
-          gap: 'var(--spacing-4)',
+          gap: 'var(--spacing-3)',
           lineHeight: 'var(--leading-normal)',
         }}
       >
-        <div
-          className="no-scrollbar hidden items-center overflow-x-auto sm:flex"
+        {/* 统一胶囊容器 - 导航 + 工具按钮合并，参考 ip.skk.moe */}
+        <nav
+          className="glass-pill no-scrollbar hidden items-center overflow-x-auto sm:flex"
           style={{
-            gap: 'var(--spacing-6)',
-            maxWidth: '10rem',
+            gap: 'var(--spacing-1)',
+            padding: 'var(--spacing-1) var(--spacing-2)',
           }}
         >
           {headerNavLinks
@@ -72,20 +83,33 @@ const Header = () => {
               <Link
                 key={link.title}
                 href={link.href}
-                className="hover:text-primary-500 transition-colors duration-200"
+                className="hover:text-primary-500 transition-colors-fast"
                 style={{
-                  fontWeight: 'var(--font-weight-normal)',
-                  color: 'var(--color-text-primary)',
+                  fontWeight: 'var(--font-weight-medium)',
+                  color: 'var(--color-text-secondary)',
                   fontSize: 'var(--font-size-sm)',
                   whiteSpace: 'nowrap',
+                  padding: 'var(--spacing-1) var(--spacing-3)',
+                  borderRadius: 'var(--radius-md)',
                 }}
               >
                 {link.title}
               </Link>
             ))}
-        </div>
-        <SearchButton />
-        <ThemeSwitch />
+          {/* 分隔线 */}
+          <div
+            style={{
+              width: '1px',
+              height: '16px',
+              backgroundColor: 'var(--glass-border-subtle)',
+              margin: '0 var(--spacing-1)',
+            }}
+            aria-hidden="true"
+          />
+          {/* 工具按钮 */}
+          <SearchButton />
+          <ThemeSwitch />
+        </nav>
         <MobileNav />
       </div>
     </header>

@@ -115,11 +115,14 @@
   --color-surface-subtle: var(--color-gray-100);
   --color-surface-inverse: var(--color-gray-950);
 
-  /* Border colors */
-  --color-border-default: var(--color-gray-200);
-  --color-border-subtle: var(--color-gray-100);
+  /* Border colors - 更微妙的分割线 (参考 ip.skk.moe) */
+  --color-border-default: oklch(0.95 0.003 264); /* 比 gray-200 更淡 */
+  --color-border-subtle: oklch(0.97 0.002 264); /* 极淡 */
   --color-border-strong: var(--color-gray-300);
   --color-border-brand: var(--color-primary-500);
+
+  /* 分割线专用 - 极微妙 */
+  --color-divider: oklch(0.94 0.004 264); /* Light mode 分割线 */
 
   /* Functional colors */
   --color-success: oklch(0.648 0.155 154.328);
@@ -211,28 +214,37 @@
 
   /* ========================================
      LIQUID GLASS DESIGN SYSTEM (WWDC 2025)
+     融合 ip.skk.moe 轻微风格 + iOS 26 设计规范
      ======================================== */
 
-  /* Glass Material - Blur Levels */
-  --glass-blur-sm: 10px; /* subtle glass - tags, badges */
-  --glass-blur-md: 20px; /* standard glass - cards, buttons */
-  --glass-blur-lg: 40px; /* strong glass - modals, overlays */
-  --glass-blur-xl: 60px; /* extra strong - full-screen overlays */
+  /* Glass Material - Blur Levels (轻微风格 - 参考 ip.skk.moe) */
+  --glass-blur-xs: 2px; /* 极轻微 - 类似 ip.skk.moe */
+  --glass-blur-sm: 8px; /* 轻微 - tags, badges */
+  --glass-blur-md: 12px; /* 标准 - cards, nav */
+  --glass-blur-lg: 20px; /* 较强 - header sticky, modals */
+  --glass-blur-xl: 32px; /* 最强 - full-screen overlays */
 
   /* Glass Material - Background Colors (Light Mode) */
-  --glass-bg-light: rgba(255, 255, 255, 0.7); /* standard translucent white */
-  --glass-bg-light-strong: rgba(255, 255, 255, 0.85); /* more opaque white */
-  --glass-bg-tint: rgba(255, 255, 255, 0.1); /* subtle tint overlay */
-  --glass-bg-tinted-primary: rgba(99, 102, 241, 0.1); /* primary color tint */
+  --glass-bg-ultra-light: rgba(255, 255, 255, 0.6); /* 极轻薄 - ip.skk.moe style */
+  --glass-bg-light: rgba(255, 255, 255, 0.8); /* 标准半透明白 */
+  --glass-bg-light-strong: rgba(255, 255, 255, 0.92); /* 接近实色 */
+  --glass-bg-tint: rgba(255, 255, 255, 0.15); /* 微弱 tint */
+  --glass-bg-tinted-primary: rgba(99, 102, 241, 0.08); /* primary 色调 */
 
-  /* Glass Material - Border Effects (Lensing) */
-  --glass-border-light: rgba(255, 255, 255, 0.3); /* top/left highlight */
-  --glass-border-dark: rgba(0, 0, 0, 0.1); /* bottom/right shadow */
-  --glass-border-inner-glow: rgba(255, 255, 255, 0.5); /* inner rim light */
+  /* Glass Material - Border Effects (Lensing - 参考 ip.skk.moe) */
+  --glass-border-light: rgba(255, 255, 255, 0.4); /* 顶部/左侧高光 */
+  --glass-border-subtle: rgba(0, 0, 0, 0.06); /* 微妙边框 - ip.skk.moe style */
+  --glass-border-dark: rgba(0, 0, 0, 0.08); /* 底部/右侧阴影 */
+  --glass-border-inner-glow: rgba(255, 255, 255, 0.6); /* 内部光晕 */
 
-  /* Glass Material - Shadow for Depth */
-  --glass-shadow-light: 0 8px 32px rgba(0, 0, 0, 0.08);
-  --glass-shadow-strong: 0 16px 48px rgba(0, 0, 0, 0.12);
+  /* Glass Material - Shadow for Depth (轻柔阴影 - 参考 ip.skk.moe) */
+  --glass-shadow-subtle: 0 1px 4px rgba(0, 0, 0, 0.06); /* 极轻微阴影 */
+  --glass-shadow-light: 0 4px 16px rgba(0, 0, 0, 0.08); /* 标准阴影 */
+  --glass-shadow-strong: 0 8px 32px rgba(0, 0, 0, 0.1); /* 较强阴影 */
+
+  /* 导航胶囊效果 (参考 ip.skk.moe 选中态) */
+  --nav-pill-bg: rgba(255, 255, 255, 0.9);
+  --nav-pill-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
 /*
@@ -280,10 +292,13 @@
     --color-surface-subtle: var(--color-gray-800);
     --color-surface-inverse: #ffffff;
 
-    /* Border colors */
-    --color-border-default: var(--color-gray-800);
-    --color-border-subtle: var(--color-gray-900);
+    /* Border colors - 更微妙的分割线 (参考 ip.skk.moe) */
+    --color-border-default: oklch(0.22 0.02 264); /* 比 gray-800 更淡 */
+    --color-border-subtle: oklch(0.18 0.015 264); /* 极淡 */
     --color-border-strong: var(--color-gray-700);
+
+    /* 分割线专用 */
+    --color-divider: oklch(0.25 0.02 264);
 
     /* Shadows in dark mode - stronger for depth */
     --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.2);
@@ -292,14 +307,20 @@
     --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
     --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.7);
 
-    /* Liquid Glass - Dark Mode Overrides */
-    --glass-bg-light: rgba(30, 30, 30, 0.7); /* dark translucent */
-    --glass-bg-light-strong: rgba(30, 30, 30, 0.85); /* stronger dark */
-    --glass-bg-tint: rgba(255, 255, 255, 0.05); /* subtle light tint */
-    --glass-border-light: rgba(255, 255, 255, 0.15); /* lighter border in dark */
-    --glass-border-dark: rgba(0, 0, 0, 0.3); /* darker shadow */
-    --glass-shadow-light: 0 8px 32px rgba(0, 0, 0, 0.4);
-    --glass-shadow-strong: 0 16px 48px rgba(0, 0, 0, 0.6);
+    /* Liquid Glass - Dark Mode Overrides (轻微风格) */
+    --glass-bg-ultra-light: rgba(30, 30, 30, 0.6);
+    --glass-bg-light: rgba(30, 30, 30, 0.75);
+    --glass-bg-light-strong: rgba(30, 30, 30, 0.9);
+    --glass-bg-tint: rgba(255, 255, 255, 0.06);
+    --glass-bg-tinted-primary: rgba(129, 140, 248, 0.1);
+    --glass-border-light: rgba(255, 255, 255, 0.12);
+    --glass-border-subtle: rgba(255, 255, 255, 0.08);
+    --glass-border-dark: rgba(0, 0, 0, 0.2);
+    --glass-shadow-subtle: 0 1px 4px rgba(0, 0, 0, 0.2);
+    --glass-shadow-light: 0 4px 16px rgba(0, 0, 0, 0.3);
+    --glass-shadow-strong: 0 8px 32px rgba(0, 0, 0, 0.4);
+    --nav-pill-bg: rgba(50, 50, 50, 0.9);
+    --nav-pill-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   }
 
   /* Responsive typography - Mobile optimization */
@@ -335,38 +356,136 @@
 
   /* ========================================
      LIQUID GLASS UTILITIES
+     融合 ip.skk.moe 轻微风格 + iOS 26 规范
      ======================================== */
 
-  /* Glass Base Styles */
+  /* Glass Base Styles - 轻微风格 */
+  .glass-ultra-light {
+    background: var(--glass-bg-ultra-light);
+    backdrop-filter: blur(var(--glass-blur-xs)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--glass-blur-xs)) saturate(180%);
+    border: 1px solid var(--glass-border-subtle);
+    box-shadow: var(--glass-shadow-subtle);
+  }
+
   .glass-light {
     background: var(--glass-bg-light);
-    backdrop-filter: blur(var(--glass-blur-md));
-    -webkit-backdrop-filter: blur(var(--glass-blur-md)); /* Safari support */
-    border: 1px solid var(--glass-border-light);
+    backdrop-filter: blur(var(--glass-blur-sm)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--glass-blur-sm)) saturate(180%);
+    border: 1px solid var(--glass-border-subtle);
+    box-shadow: var(--glass-shadow-light);
+  }
+
+  .glass-medium {
+    background: var(--glass-bg-light);
+    backdrop-filter: blur(var(--glass-blur-md)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--glass-blur-md)) saturate(180%);
+    border: 1px solid var(--glass-border-subtle);
     box-shadow: var(--glass-shadow-light);
   }
 
   .glass-strong {
     background: var(--glass-bg-light-strong);
-    backdrop-filter: blur(var(--glass-blur-lg));
-    -webkit-backdrop-filter: blur(var(--glass-blur-lg));
+    backdrop-filter: blur(var(--glass-blur-lg)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--glass-blur-lg)) saturate(180%);
     border: 1px solid var(--glass-border-light);
     box-shadow: var(--glass-shadow-strong);
   }
 
   .glass-subtle {
     background: var(--glass-bg-tint);
-    backdrop-filter: blur(var(--glass-blur-sm));
-    -webkit-backdrop-filter: blur(var(--glass-blur-sm));
-    border: 1px solid var(--glass-border-light);
+    backdrop-filter: blur(var(--glass-blur-xs));
+    -webkit-backdrop-filter: blur(var(--glass-blur-xs));
+    border: 1px solid transparent;
   }
 
   .glass-subtle:hover {
-    background: var(--glass-bg-light);
-    transform: translateY(-2px);
+    background: var(--glass-bg-ultra-light);
+    border-color: var(--glass-border-subtle);
+    transform: translateY(-1px);
   }
 
-  /* Lensing Effect - creates dimensional depth */
+  /* 导航胶囊样式 - 参考 ip.skk.moe */
+  .glass-pill {
+    background: var(--nav-pill-bg);
+    backdrop-filter: blur(var(--glass-blur-sm));
+    -webkit-backdrop-filter: blur(var(--glass-blur-sm));
+    border: 1px solid var(--glass-border-subtle);
+    border-radius: var(--radius-full);
+    box-shadow: var(--nav-pill-shadow);
+    padding: var(--spacing-2) var(--spacing-4);
+  }
+
+  /* 药丸标签 - 参考 ip.skk.moe 的"国内/国际"标签 */
+  .tag-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--spacing-1) var(--spacing-3);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    border-radius: var(--radius-full);
+    transition: all var(--duration-fast) var(--ease-out);
+  }
+
+  .tag-pill-solid {
+    background: var(--color-primary-100);
+    color: var(--color-primary-700);
+  }
+
+  .tag-pill-solid:hover {
+    background: var(--color-primary-200);
+  }
+
+  .tag-pill-outline {
+    background: transparent;
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border-default);
+  }
+
+  .tag-pill-outline:hover {
+    background: var(--glass-bg-tint);
+    border-color: var(--color-border-strong);
+  }
+
+  .tag-pill-glass {
+    background: var(--glass-bg-tinted-primary);
+    color: var(--color-text-secondary);
+    backdrop-filter: blur(var(--glass-blur-xs));
+    -webkit-backdrop-filter: blur(var(--glass-blur-xs));
+    border: 1px solid var(--color-primary-200);
+  }
+
+  .tag-pill-glass:hover {
+    background: var(--color-primary-100);
+    color: var(--color-primary-700);
+    border-color: var(--color-primary-300);
+  }
+
+  /* Dark mode 药丸标签 */
+  :root:where(.dark, .dark *) {
+    .tag-pill-solid {
+      background: var(--color-primary-900);
+      color: var(--color-primary-300);
+    }
+
+    .tag-pill-solid:hover {
+      background: var(--color-primary-800);
+    }
+
+    .tag-pill-glass {
+      background: var(--glass-bg-tinted-primary);
+      color: var(--color-primary-300);
+      border-color: var(--color-primary-800);
+    }
+
+    .tag-pill-glass:hover {
+      background: var(--color-primary-900);
+      color: var(--color-primary-200);
+      border-color: var(--color-primary-700);
+    }
+  }
+
+  /* Lensing Effect - 创造维度深度感 */
   .lensing-effect {
     position: relative;
     overflow: hidden;
@@ -385,7 +504,8 @@
       var(--glass-border-inner-glow) 50%,
       transparent
     );
-    opacity: 0.6;
+    opacity: 0.5;
+    pointer-events: none;
   }
 
   .lensing-effect::after {
@@ -401,39 +521,55 @@
       var(--glass-border-inner-glow) 50%,
       transparent
     );
-    opacity: 0.4;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  /* 轻微 Lensing - 用于小组件 */
+  .lensing-subtle::before {
+    opacity: 0.3;
+  }
+
+  .lensing-subtle::after {
+    opacity: 0.2;
   }
 
   /* Fallback for browsers without backdrop-filter support */
-  @supports not (backdrop-filter: blur(20px)) {
+  @supports not (backdrop-filter: blur(8px)) {
+    .glass-ultra-light,
     .glass-light,
+    .glass-medium,
     .glass-strong,
-    .glass-subtle {
+    .glass-subtle,
+    .glass-pill {
       background: var(--color-surface-base);
-      box-shadow: var(--shadow-md);
+      box-shadow: var(--shadow-sm);
     }
   }
 
   /* Glass button variant */
   .glass-button {
     background: var(--glass-bg-light);
-    backdrop-filter: blur(var(--glass-blur-md));
-    -webkit-backdrop-filter: blur(var(--glass-blur-md));
-    border: 1px solid var(--glass-border-light);
+    backdrop-filter: blur(var(--glass-blur-sm));
+    -webkit-backdrop-filter: blur(var(--glass-blur-sm));
+    border: 1px solid var(--glass-border-subtle);
     transition:
       background var(--duration-fast) var(--ease-out),
       transform var(--duration-fast) var(--ease-out),
-      box-shadow var(--duration-fast) var(--ease-out);
+      box-shadow var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out);
   }
 
   .glass-button:hover {
     background: var(--glass-bg-light-strong);
+    border-color: var(--glass-border-light);
     transform: translateY(-1px);
     box-shadow: var(--glass-shadow-light);
   }
 
   .glass-button:active {
     transform: translateY(0);
+    box-shadow: var(--glass-shadow-subtle);
   }
 
   /* Typography system */

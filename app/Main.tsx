@@ -6,10 +6,17 @@ import NewsletterForm from 'pliny/ui/NewsletterForm'
 
 const MAX_DISPLAY = 5
 
+/**
+ * Home 首页组件 - 卡片化布局
+ *
+ * 设计参考：
+ * - ip.skk.moe: 卡片化布局，移除分割线
+ * - Liquid Glass: 玻璃效果卡片
+ */
 export default function Home({ posts }) {
   return (
     <>
-      <div className="divide-y divide-gray-200 dark:divide-gray-700">
+      <div>
         <div className="space-y-2 pt-6 pb-8 md:space-y-5">
           <h1 className="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 dark:text-gray-100">
             Latest
@@ -18,13 +25,20 @@ export default function Home({ posts }) {
             {siteMetadata.description}
           </p>
         </div>
-        <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+        {/* 卡片化文章列表 - 移除 divide-y，改用间距和玻璃卡片 */}
+        <ul className="space-y-6">
           {!posts.length && 'No posts found.'}
           {posts.slice(0, MAX_DISPLAY).map((post) => {
             const { slug, date, title, summary, tags } = post
             return (
-              <li key={slug} className="py-12">
-                <article>
+              <li key={slug}>
+                <article
+                  className="glass-ultra-light hover:glass-light transition-all duration-300"
+                  style={{
+                    borderRadius: 'var(--radius-lg)',
+                    padding: 'var(--spacing-6)',
+                  }}
+                >
                   <div className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
                     <dl>
                       <dt className="sr-only">Published on</dt>
@@ -32,34 +46,42 @@ export default function Home({ posts }) {
                         <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
                       </dd>
                     </dl>
-                    <div className="space-y-5 xl:col-span-3">
-                      <div className="space-y-6">
+                    <div className="space-y-4 xl:col-span-3">
+                      <div className="space-y-3">
                         <div>
                           <h2 className="text-2xl leading-8 font-bold tracking-tight">
                             <Link
                               href={`/blog/${slug}`}
-                              className="text-gray-900 dark:text-gray-100"
+                              className="hover:text-primary-500 transition-colors-fast dark:hover:text-primary-400 text-gray-900 dark:text-gray-100"
                             >
                               {title}
                             </Link>
                           </h2>
-                          <div className="flex flex-wrap">
+                          <div className="mt-2 flex flex-wrap">
                             {tags.map((tag) => (
                               <Tag key={tag} text={tag} />
                             ))}
                           </div>
                         </div>
-                        <div className="prose max-w-none text-gray-500 dark:text-gray-400">
-                          {summary}
-                        </div>
+                        {summary && (
+                          <div className="prose max-w-none text-gray-500 dark:text-gray-400">
+                            {summary}
+                          </div>
+                        )}
                       </div>
                       <div className="text-base leading-6 font-medium">
                         <Link
                           href={`/blog/${slug}`}
-                          className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                          className="group text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 inline-flex items-center"
                           aria-label={`Read more: "${title}"`}
                         >
-                          Read more &rarr;
+                          Read more
+                          <span
+                            className="ml-1 transition-transform duration-200 group-hover:translate-x-1"
+                            aria-hidden="true"
+                          >
+                            &rarr;
+                          </span>
                         </Link>
                       </div>
                     </div>

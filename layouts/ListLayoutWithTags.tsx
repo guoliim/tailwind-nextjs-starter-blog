@@ -21,10 +21,11 @@ interface ListLayoutProps {
   pagination?: PaginationProps
 }
 
+/**
+ * Pagination 组件 - 玻璃卡片风格
+ */
 function Pagination({ totalPages, currentPage }: PaginationProps) {
   const pathname = usePathname()
-  const segments = pathname.split('/')
-  const lastSegment = segments[segments.length - 1]
   const basePath = pathname
     .replace(/^\//, '') // Remove leading slash
     .replace(/\/page\/\d+\/?$/, '') // Remove any trailing /page
@@ -33,32 +34,67 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
   const nextPage = currentPage + 1 <= totalPages
 
   return (
-    <div className="space-y-2 pt-6 pb-8 md:space-y-5">
-      <nav className="flex justify-between">
-        {!prevPage && (
-          <button className="cursor-auto disabled:opacity-50" disabled={!prevPage}>
-            Previous
+    <div
+      className="glass-ultra-light"
+      style={{
+        borderRadius: 'var(--radius-lg)',
+        padding: 'var(--spacing-4)',
+        marginTop: 'var(--spacing-6)',
+      }}
+    >
+      <nav className="flex items-center justify-between">
+        {!prevPage ? (
+          <button
+            className="cursor-not-allowed text-gray-400 dark:text-gray-600"
+            disabled
+            style={{
+              padding: 'var(--spacing-2) var(--spacing-4)',
+              borderRadius: 'var(--radius-md)',
+            }}
+          >
+            ← Previous
           </button>
-        )}
-        {prevPage && (
+        ) : (
           <Link
             href={currentPage - 1 === 1 ? `/${basePath}/` : `/${basePath}/page/${currentPage - 1}`}
             rel="prev"
+            className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors-fast"
+            style={{
+              padding: 'var(--spacing-2) var(--spacing-4)',
+              borderRadius: 'var(--radius-md)',
+            }}
           >
-            Previous
+            ← Previous
           </Link>
         )}
-        <span>
+        <span
+          className="text-gray-600 dark:text-gray-400"
+          style={{ fontSize: 'var(--font-size-sm)' }}
+        >
           {currentPage} of {totalPages}
         </span>
-        {!nextPage && (
-          <button className="cursor-auto disabled:opacity-50" disabled={!nextPage}>
-            Next
+        {!nextPage ? (
+          <button
+            className="cursor-not-allowed text-gray-400 dark:text-gray-600"
+            disabled
+            style={{
+              padding: 'var(--spacing-2) var(--spacing-4)',
+              borderRadius: 'var(--radius-md)',
+            }}
+          >
+            Next →
           </button>
-        )}
-        {nextPage && (
-          <Link href={`/${basePath}/page/${currentPage + 1}`} rel="next">
-            Next
+        ) : (
+          <Link
+            href={`/${basePath}/page/${currentPage + 1}`}
+            rel="next"
+            className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors-fast"
+            style={{
+              padding: 'var(--spacing-2) var(--spacing-4)',
+              borderRadius: 'var(--radius-md)',
+            }}
+          >
+            Next →
           </Link>
         )}
       </nav>
@@ -66,6 +102,13 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
   )
 }
 
+/**
+ * ListLayoutWithTags - 博客列表布局
+ *
+ * 设计参考：
+ * - ip.skk.moe: 卡片化布局，移除分割线
+ * - Liquid Glass: 玻璃效果卡片
+ */
 export default function ListLayoutWithTags({
   posts,
   title,
@@ -87,31 +130,58 @@ export default function ListLayoutWithTags({
             {title}
           </h1>
         </div>
-        <div className="flex sm:space-x-24">
-          <div className="hidden h-full max-h-screen max-w-[280px] min-w-[280px] flex-wrap overflow-auto border-r border-gray-200 pt-5 sm:flex dark:border-gray-800">
-            <div className="px-6 py-4">
+        <div className="flex" style={{ gap: 'var(--spacing-6)' }}>
+          {/* 侧边栏标签列表 - 玻璃卡片风格 */}
+          <div
+            className="glass-ultra-light hidden h-fit max-h-screen max-w-[280px] min-w-[280px] flex-wrap overflow-auto sm:flex"
+            style={{
+              borderRadius: 'var(--radius-lg)',
+              padding: 'var(--spacing-4)',
+              position: 'sticky',
+              top: 'var(--spacing-20)',
+            }}
+          >
+            <div style={{ padding: 'var(--spacing-2)' }}>
               {pathname.startsWith('/blog') ? (
-                <h3 className="text-primary-500 font-bold uppercase">All Posts</h3>
+                <h3
+                  className="text-primary-500 font-bold uppercase"
+                  style={{ marginBottom: 'var(--spacing-3)' }}
+                >
+                  All Posts
+                </h3>
               ) : (
                 <Link
                   href={`/blog`}
-                  className="hover:text-primary-500 dark:hover:text-primary-500 font-bold text-gray-700 uppercase dark:text-gray-300"
+                  className="hover:text-primary-500 dark:hover:text-primary-500 transition-colors-fast block font-bold text-gray-700 uppercase dark:text-gray-300"
+                  style={{ marginBottom: 'var(--spacing-3)' }}
                 >
                   All Posts
                 </Link>
               )}
-              <ul>
+              <ul className="space-y-1">
                 {sortedTags.map((t) => {
+                  const isActive = decodeURI(pathname.split('/tags/')[1]) === slug(t)
                   return (
-                    <li key={t} className="my-3">
-                      {decodeURI(pathname.split('/tags/')[1]) === slug(t) ? (
-                        <h3 className="text-primary-500 inline px-3 py-2 text-sm font-bold uppercase">
+                    <li key={t}>
+                      {isActive ? (
+                        <span
+                          className="text-primary-500 block text-sm font-bold uppercase"
+                          style={{
+                            padding: 'var(--spacing-2) var(--spacing-3)',
+                            borderRadius: 'var(--radius-md)',
+                            backgroundColor: 'var(--glass-bg-tinted-primary)',
+                          }}
+                        >
                           {`${t} (${tagCounts[t]})`}
-                        </h3>
+                        </span>
                       ) : (
                         <Link
                           href={`/tags/${slug(t)}`}
-                          className="hover:text-primary-500 dark:hover:text-primary-500 px-3 py-2 text-sm font-medium text-gray-500 uppercase dark:text-gray-300"
+                          className="hover:text-primary-500 dark:hover:text-primary-500 transition-colors-fast block text-sm font-medium text-gray-500 uppercase dark:text-gray-300"
+                          style={{
+                            padding: 'var(--spacing-2) var(--spacing-3)',
+                            borderRadius: 'var(--radius-md)',
+                          }}
                           aria-label={`View posts tagged ${t}`}
                         >
                           {`${t} (${tagCounts[t]})`}
@@ -123,34 +193,48 @@ export default function ListLayoutWithTags({
               </ul>
             </div>
           </div>
-          <div>
-            <ul>
+          {/* 文章列表 - 卡片化 */}
+          <div className="flex-1">
+            <ul className="space-y-4">
               {displayPosts.map((post) => {
                 const { path, date, title, summary, tags } = post
                 return (
-                  <li key={path} className="py-5">
-                    <article className="flex flex-col space-y-2 xl:space-y-0">
-                      <dl>
-                        <dt className="sr-only">Published on</dt>
-                        <dd className="text-base leading-6 font-medium text-gray-500 dark:text-gray-400">
-                          <time dateTime={date} suppressHydrationWarning>
-                            {formatDate(date, siteMetadata.locale)}
-                          </time>
-                        </dd>
-                      </dl>
-                      <div className="space-y-3">
-                        <div>
-                          <h2 className="text-2xl leading-8 font-bold tracking-tight">
-                            <Link href={`/${path}`} className="text-gray-900 dark:text-gray-100">
-                              {title}
-                            </Link>
-                          </h2>
-                          <div className="flex flex-wrap">
-                            {tags?.map((tag) => <Tag key={tag} text={tag} />)}
+                  <li key={path}>
+                    <article
+                      className="glass-ultra-light hover:glass-light transition-all duration-300"
+                      style={{
+                        borderRadius: 'var(--radius-lg)',
+                        padding: 'var(--spacing-5)',
+                      }}
+                    >
+                      <div className="flex flex-col space-y-2">
+                        <dl>
+                          <dt className="sr-only">Published on</dt>
+                          <dd className="text-sm leading-6 font-medium text-gray-500 dark:text-gray-400">
+                            <time dateTime={date} suppressHydrationWarning>
+                              {formatDate(date, siteMetadata.locale)}
+                            </time>
+                          </dd>
+                        </dl>
+                        <div className="space-y-2">
+                          <div>
+                            <h2 className="text-xl leading-8 font-bold tracking-tight">
+                              <Link
+                                href={`/${path}`}
+                                className="hover:text-primary-500 transition-colors-fast dark:hover:text-primary-400 text-gray-900 dark:text-gray-100"
+                              >
+                                {title}
+                              </Link>
+                            </h2>
+                            <div className="mt-1 flex flex-wrap">
+                              {tags?.map((tag) => <Tag key={tag} text={tag} />)}
+                            </div>
                           </div>
-                        </div>
-                        <div className="prose max-w-none text-gray-500 dark:text-gray-400">
-                          {summary}
+                          {summary && (
+                            <div className="prose max-w-none text-sm text-gray-500 dark:text-gray-400">
+                              {summary}
+                            </div>
+                          )}
                         </div>
                       </div>
                     </article>

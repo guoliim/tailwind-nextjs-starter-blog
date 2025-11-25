@@ -29,6 +29,13 @@ interface LayoutProps {
   children: ReactNode
 }
 
+/**
+ * PostLayout - 文章详情页布局
+ *
+ * 设计参考：
+ * - ip.skk.moe: 卡片化布局，移除分割线
+ * - Liquid Glass: 玻璃效果卡片
+ */
 export default function PostLayout({ content, authorDetails, next, prev, children }: LayoutProps) {
   const { filePath, path, slug, date, title, tags } = content
   const basePath = path.split('/')[0]
@@ -37,8 +44,9 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
     <SectionContainer>
       <ScrollTopAndComment />
       <article>
-        <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
-          <header className="pt-6 xl:pb-6">
+        <div>
+          {/* 文章头部 */}
+          <header className="pt-6 pb-8">
             <div className="space-y-1 text-center">
               <dl className="space-y-10">
                 <div>
@@ -55,8 +63,18 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               </div>
             </div>
           </header>
-          <div className="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0 dark:divide-gray-700">
-            <dl className="pt-6 pb-10 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700">
+
+          {/* 主体内容区 - 移除 divide-y，改用间距 */}
+          <div className="grid-rows-[auto_1fr] pb-8 xl:grid xl:grid-cols-4 xl:gap-x-6">
+            {/* 作者信息卡片 */}
+            <dl
+              className="glass-ultra-light"
+              style={{
+                borderRadius: 'var(--radius-lg)',
+                padding: 'var(--spacing-4)',
+                marginBottom: 'var(--spacing-6)',
+              }}
+            >
               <dt className="sr-only">Authors</dt>
               <dd>
                 <ul className="flex flex-wrap justify-center gap-4 sm:space-x-12 xl:block xl:space-y-8 xl:space-x-0">
@@ -93,70 +111,115 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 </ul>
               </dd>
             </dl>
-            <div className="divide-y divide-gray-200 xl:col-span-3 xl:row-span-2 xl:pb-0 dark:divide-gray-700">
-              <div className="prose dark:prose-invert max-w-none pt-10 pb-8">{children}</div>
-              <div className="pt-6 pb-6 text-sm text-gray-700 dark:text-gray-300">
-                <Link href={discussUrl(path)} rel="nofollow">
+
+            {/* 文章内容区 - 轻微玻璃卡片 */}
+            <div className="xl:col-span-3 xl:row-span-2 xl:pb-0">
+              <div
+                className="glass-ultra-light mb-6"
+                style={{
+                  borderRadius: 'var(--radius-lg)',
+                  padding: 'var(--spacing-6) var(--spacing-8)',
+                }}
+              >
+                <div className="prose dark:prose-invert max-w-none">{children}</div>
+              </div>
+              <div
+                className="glass-ultra-light mb-6 text-sm text-gray-700 dark:text-gray-300"
+                style={{
+                  borderRadius: 'var(--radius-lg)',
+                  padding: 'var(--spacing-4)',
+                }}
+              >
+                <Link href={discussUrl(path)} rel="nofollow" className="hover:text-primary-500">
                   Discuss on Twitter
                 </Link>
                 {` • `}
-                <Link href={editUrl(filePath)}>View on GitHub</Link>
+                <Link href={editUrl(filePath)} className="hover:text-primary-500">
+                  View on GitHub
+                </Link>
               </div>
               {siteMetadata.comments && (
                 <div
-                  className="pt-6 pb-6 text-center text-gray-700 dark:text-gray-300"
+                  className="glass-ultra-light text-center text-gray-700 dark:text-gray-300"
+                  style={{
+                    borderRadius: 'var(--radius-lg)',
+                    padding: 'var(--spacing-6)',
+                  }}
                   id="comment"
                 >
                   <Comments slug={slug} />
                 </div>
               )}
             </div>
-            <footer>
-              <div className="divide-gray-200 text-sm leading-5 font-medium xl:col-start-1 xl:row-start-2 xl:divide-y dark:divide-gray-700">
-                {tags && (
-                  <div className="py-4 xl:py-8">
-                    <h2 className="text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
-                      Tags
-                    </h2>
-                    <div className="flex flex-wrap">
-                      {tags.map((tag) => (
-                        <Tag key={tag} text={tag} />
-                      ))}
+
+            {/* 侧边栏 footer - 卡片化，增加间距 */}
+            <footer className="space-y-6">
+              {tags && (
+                <div
+                  className="glass-ultra-light"
+                  style={{
+                    borderRadius: 'var(--radius-lg)',
+                    padding: 'var(--spacing-4)',
+                  }}
+                >
+                  <h2 className="mb-2 text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
+                    Tags
+                  </h2>
+                  <div className="flex flex-wrap">
+                    {tags.map((tag) => (
+                      <Tag key={tag} text={tag} />
+                    ))}
+                  </div>
+                </div>
+              )}
+              {(next || prev) && (
+                <div
+                  className="glass-ultra-light space-y-4"
+                  style={{
+                    borderRadius: 'var(--radius-lg)',
+                    padding: 'var(--spacing-4)',
+                  }}
+                >
+                  {prev && prev.path && (
+                    <div>
+                      <h2 className="text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
+                        Previous Article
+                      </h2>
+                      <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
+                        <Link href={`/${prev.path}`}>{prev.title}</Link>
+                      </div>
                     </div>
-                  </div>
-                )}
-                {(next || prev) && (
-                  <div className="flex justify-between py-4 xl:block xl:space-y-8 xl:py-8">
-                    {prev && prev.path && (
-                      <div>
-                        <h2 className="text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
-                          Previous Article
-                        </h2>
-                        <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
-                          <Link href={`/${prev.path}`}>{prev.title}</Link>
-                        </div>
+                  )}
+                  {next && next.path && (
+                    <div>
+                      <h2 className="text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
+                        Next Article
+                      </h2>
+                      <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
+                        <Link href={`/${next.path}`}>{next.title}</Link>
                       </div>
-                    )}
-                    {next && next.path && (
-                      <div>
-                        <h2 className="text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
-                          Next Article
-                        </h2>
-                        <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
-                          <Link href={`/${next.path}`}>{next.title}</Link>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-              <div className="pt-4 xl:pt-8">
+                    </div>
+                  )}
+                </div>
+              )}
+              {/* 返回按钮 - 玻璃胶囊样式 */}
+              <div style={{ paddingTop: 'var(--spacing-2)' }}>
                 <Link
                   href={`/${basePath}`}
-                  className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                  className="glass-pill group hover:text-primary-500 transition-colors-fast dark:hover:text-primary-400 inline-flex items-center text-gray-600 dark:text-gray-400"
+                  style={{
+                    padding: 'var(--spacing-2) var(--spacing-4)',
+                    fontSize: 'var(--font-size-sm)',
+                  }}
                   aria-label="Back to the blog"
                 >
-                  &larr; Back to the blog
+                  <span
+                    className="mr-2 transition-transform duration-200 group-hover:-translate-x-1"
+                    aria-hidden="true"
+                  >
+                    &larr;
+                  </span>
+                  Back to the blog
                 </Link>
               </div>
             </footer>
