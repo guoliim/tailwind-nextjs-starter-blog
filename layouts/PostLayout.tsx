@@ -67,14 +67,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           {/* 主体内容区 - 移除 divide-y，改用间距 */}
           <div className="grid-rows-[auto_1fr] pb-8 xl:grid xl:grid-cols-4 xl:gap-x-6">
             {/* 作者信息卡片 */}
-            <dl
-              className="glass-ultra-light"
-              style={{
-                borderRadius: 'var(--radius-lg)',
-                padding: 'var(--spacing-4)',
-                marginBottom: 'var(--spacing-6)',
-              }}
-            >
+            <dl className="glass-ultra-light mb-[var(--spacing-6)] rounded-[var(--radius-lg)] p-[var(--spacing-4)]">
               <dt className="sr-only">Authors</dt>
               <dd>
                 <ul className="flex flex-wrap justify-center gap-4 sm:space-x-12 xl:block xl:space-y-8 xl:space-x-0">
@@ -114,22 +107,10 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
 
             {/* 文章内容区 - 轻微玻璃卡片 */}
             <div className="xl:col-span-3 xl:row-span-2 xl:pb-0">
-              <div
-                className="glass-ultra-light mb-6"
-                style={{
-                  borderRadius: 'var(--radius-lg)',
-                  padding: 'var(--spacing-6) var(--spacing-8)',
-                }}
-              >
+              <div className="glass-ultra-light mb-6 rounded-[var(--radius-lg)] px-[var(--spacing-8)] py-[var(--spacing-6)]">
                 <div className="prose dark:prose-invert max-w-none">{children}</div>
               </div>
-              <div
-                className="glass-ultra-light mb-6 text-sm text-gray-700 dark:text-gray-300"
-                style={{
-                  borderRadius: 'var(--radius-lg)',
-                  padding: 'var(--spacing-4)',
-                }}
-              >
+              <div className="glass-ultra-light mb-6 rounded-[var(--radius-lg)] p-[var(--spacing-4)] text-sm text-gray-700 dark:text-gray-300">
                 <Link href={discussUrl(path)} rel="nofollow" className="hover:text-primary-500">
                   Discuss on Twitter
                 </Link>
@@ -140,11 +121,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               </div>
               {siteMetadata.comments && (
                 <div
-                  className="glass-ultra-light text-center text-gray-700 dark:text-gray-300"
-                  style={{
-                    borderRadius: 'var(--radius-lg)',
-                    padding: 'var(--spacing-6)',
-                  }}
+                  className="glass-ultra-light rounded-[var(--radius-lg)] p-[var(--spacing-6)] text-center text-gray-700 dark:text-gray-300"
                   id="comment"
                 >
                   <Comments slug={slug} />
@@ -155,13 +132,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
             {/* 侧边栏 footer - 卡片化，增加间距 */}
             <footer className="space-y-6">
               {tags && (
-                <div
-                  className="glass-ultra-light"
-                  style={{
-                    borderRadius: 'var(--radius-lg)',
-                    padding: 'var(--spacing-4)',
-                  }}
-                >
+                <div className="glass-ultra-light rounded-[var(--radius-lg)] p-[var(--spacing-4)]">
                   <h2 className="mb-2 text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
                     Tags
                   </h2>
@@ -173,13 +144,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 </div>
               )}
               {(next || prev) && (
-                <div
-                  className="glass-ultra-light space-y-4"
-                  style={{
-                    borderRadius: 'var(--radius-lg)',
-                    padding: 'var(--spacing-4)',
-                  }}
-                >
+                <div className="glass-ultra-light space-y-4 rounded-[var(--radius-lg)] p-[var(--spacing-4)]">
                   {prev && prev.path && (
                     <div>
                       <h2 className="text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
@@ -203,14 +168,10 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 </div>
               )}
               {/* 返回按钮 - 玻璃胶囊样式 */}
-              <div style={{ paddingTop: 'var(--spacing-2)' }}>
+              <div className="pt-[var(--spacing-2)]">
                 <Link
                   href={`/${basePath}`}
-                  className="glass-pill group hover:text-primary-500 transition-colors-fast dark:hover:text-primary-400 inline-flex items-center text-gray-600 dark:text-gray-400"
-                  style={{
-                    padding: 'var(--spacing-2) var(--spacing-4)',
-                    fontSize: 'var(--font-size-sm)',
-                  }}
+                  className="glass-pill group transition-colors-fast hover:text-primary-500 dark:hover:text-primary-400 inline-flex items-center px-[var(--spacing-4)] py-[var(--spacing-2)] text-[length:var(--font-size-sm)] text-gray-600 dark:text-gray-400"
                   aria-label="Back to the blog"
                 >
                   <span

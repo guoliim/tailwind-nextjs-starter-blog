@@ -19,23 +19,13 @@ export default async function Page() {
   const sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a])
   return (
     <>
-      <div
-        className="flex flex-col items-start justify-start md:mt-24 md:flex-row md:items-center md:justify-center"
-        style={{ gap: 'var(--spacing-8)' }}
-      >
+      <div className="flex flex-col items-start justify-start gap-[var(--spacing-8)] md:mt-24 md:flex-row md:items-center md:justify-center">
         <div className="pt-6 pb-8 md:pt-0 md:pb-0">
           <h1 className="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 dark:text-gray-100">
             Tags
           </h1>
         </div>
-        <div
-          className="glass-ultra-light flex max-w-2xl flex-wrap"
-          style={{
-            borderRadius: 'var(--radius-lg)',
-            padding: 'var(--spacing-6)',
-            gap: 'var(--spacing-3)',
-          }}
-        >
+        <div className="glass-ultra-light flex max-w-2xl flex-wrap gap-[var(--spacing-3)] rounded-[var(--radius-lg)] p-[var(--spacing-6)]">
           {tagKeys.length === 0 && 'No tags found.'}
           {sortedTags.map((t) => {
             return (
@@ -46,13 +36,7 @@ export default async function Page() {
                 aria-label={`View posts tagged ${t}`}
               >
                 {t}
-                <span
-                  className="text-gray-500 dark:text-gray-400"
-                  style={{
-                    marginLeft: 'var(--spacing-1)',
-                    fontSize: 'var(--font-size-xs)',
-                  }}
-                >
+                <span className="ml-[var(--spacing-1)] text-[length:var(--font-size-xs)] text-gray-500 dark:text-gray-400">
                   ({tagCounts[t]})
                 </span>
               </Link>

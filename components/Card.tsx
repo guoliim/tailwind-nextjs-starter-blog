@@ -17,12 +17,9 @@ interface CardProps {
  * - 苹果 HIG: 统一圆角系统
  */
 const Card = ({ title, description, imgSrc, href }: CardProps) => (
-  <div className="md max-w-[544px] md:w-1/2" style={{ padding: 'var(--spacing-4)' }}>
+  <div className="md max-w-[544px] p-[var(--spacing-4)] md:w-1/2">
     <div
-      className={`${imgSrc && 'h-full'} glass-ultra-light lensing-effect lensing-subtle hover:glass-light overflow-hidden transition-all duration-300`}
-      style={{
-        borderRadius: 'var(--radius-lg)',
-      }}
+      className={`${imgSrc && 'h-full'} glass-ultra-light lensing-effect lensing-subtle hover:glass-light overflow-hidden rounded-[var(--radius-lg)] transition-all duration-300`}
     >
       {imgSrc &&
         (href ? (
@@ -30,34 +27,22 @@ const Card = ({ title, description, imgSrc, href }: CardProps) => (
             <Image
               alt={title}
               src={imgSrc}
-              className="object-cover object-center transition-transform duration-300 hover:scale-[1.02] md:h-36 lg:h-48"
+              className="rounded-t-[var(--radius-lg)] object-cover object-center transition-transform duration-300 hover:scale-[1.02] md:h-36 lg:h-48"
               width={544}
               height={306}
-              style={{
-                borderRadius: 'var(--radius-lg) var(--radius-lg) 0 0',
-              }}
             />
           </Link>
         ) : (
           <Image
             alt={title}
             src={imgSrc}
-            className="object-cover object-center md:h-36 lg:h-48"
+            className="rounded-t-[var(--radius-lg)] object-cover object-center md:h-36 lg:h-48"
             width={544}
             height={306}
-            style={{
-              borderRadius: 'var(--radius-lg) var(--radius-lg) 0 0',
-            }}
           />
         ))}
-      <div style={{ padding: 'var(--spacing-component-lg)' }}>
-        <h2
-          className="typography-h5"
-          style={{
-            marginBottom: 'var(--spacing-3)',
-            color: 'var(--color-text-primary)',
-          }}
-        >
+      <div className="p-[var(--spacing-component-lg)]">
+        <h2 className="typography-h5 mb-[var(--spacing-3)] text-[var(--color-text-primary)]">
           {href ? (
             <Link
               href={href}
@@ -70,26 +55,13 @@ const Card = ({ title, description, imgSrc, href }: CardProps) => (
             title
           )}
         </h2>
-        <p
-          className="prose mb-3 max-w-none"
-          style={{
-            color: 'var(--color-text-secondary)',
-            fontSize: 'var(--font-size-sm)',
-            lineHeight: 'var(--leading-relaxed)',
-          }}
-        >
+        <p className="prose mb-3 max-w-none text-[length:var(--font-size-sm)] leading-[var(--leading-relaxed)] text-[var(--color-text-secondary)]">
           {description}
         </p>
         {href && (
           <Link
             href={href}
-            className="transition-colors-fast group inline-flex items-center"
-            style={{
-              color: 'var(--color-text-link)',
-              fontSize: 'var(--font-size-sm)',
-              lineHeight: 'var(--leading-normal)',
-              fontWeight: 'var(--font-weight-medium)',
-            }}
+            className="group transition-colors-fast inline-flex items-center text-[length:var(--font-size-sm)] leading-[var(--leading-normal)] font-[var(--font-weight-medium)] text-[var(--color-text-link)]"
             aria-label={`Link to ${title}`}
           >
             Learn more

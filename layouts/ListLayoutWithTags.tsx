@@ -34,23 +34,12 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
   const nextPage = currentPage + 1 <= totalPages
 
   return (
-    <div
-      className="glass-ultra-light"
-      style={{
-        borderRadius: 'var(--radius-lg)',
-        padding: 'var(--spacing-4)',
-        marginTop: 'var(--spacing-6)',
-      }}
-    >
+    <div className="glass-ultra-light mt-[var(--spacing-6)] rounded-[var(--radius-lg)] p-[var(--spacing-4)]">
       <nav className="flex items-center justify-between">
         {!prevPage ? (
           <button
-            className="cursor-not-allowed text-gray-400 dark:text-gray-600"
+            className="cursor-not-allowed rounded-[var(--radius-md)] px-[var(--spacing-4)] py-[var(--spacing-2)] text-gray-400 dark:text-gray-600"
             disabled
-            style={{
-              padding: 'var(--spacing-2) var(--spacing-4)',
-              borderRadius: 'var(--radius-md)',
-            }}
           >
             ← Previous
           </button>
@@ -58,29 +47,18 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
           <Link
             href={currentPage - 1 === 1 ? `/${basePath}/` : `/${basePath}/page/${currentPage - 1}`}
             rel="prev"
-            className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors-fast"
-            style={{
-              padding: 'var(--spacing-2) var(--spacing-4)',
-              borderRadius: 'var(--radius-md)',
-            }}
+            className="text-primary-500 transition-colors-fast hover:text-primary-600 dark:hover:text-primary-400 rounded-[var(--radius-md)] px-[var(--spacing-4)] py-[var(--spacing-2)]"
           >
             ← Previous
           </Link>
         )}
-        <span
-          className="text-gray-600 dark:text-gray-400"
-          style={{ fontSize: 'var(--font-size-sm)' }}
-        >
+        <span className="text-[length:var(--font-size-sm)] text-gray-600 dark:text-gray-400">
           {currentPage} of {totalPages}
         </span>
         {!nextPage ? (
           <button
-            className="cursor-not-allowed text-gray-400 dark:text-gray-600"
+            className="cursor-not-allowed rounded-[var(--radius-md)] px-[var(--spacing-4)] py-[var(--spacing-2)] text-gray-400 dark:text-gray-600"
             disabled
-            style={{
-              padding: 'var(--spacing-2) var(--spacing-4)',
-              borderRadius: 'var(--radius-md)',
-            }}
           >
             Next →
           </button>
@@ -88,11 +66,7 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
           <Link
             href={`/${basePath}/page/${currentPage + 1}`}
             rel="next"
-            className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors-fast"
-            style={{
-              padding: 'var(--spacing-2) var(--spacing-4)',
-              borderRadius: 'var(--radius-md)',
-            }}
+            className="text-primary-500 transition-colors-fast hover:text-primary-600 dark:hover:text-primary-400 rounded-[var(--radius-md)] px-[var(--spacing-4)] py-[var(--spacing-2)]"
           >
             Next →
           </Link>
@@ -130,30 +104,18 @@ export default function ListLayoutWithTags({
             {title}
           </h1>
         </div>
-        <div className="flex" style={{ gap: 'var(--spacing-6)' }}>
+        <div className="flex gap-[var(--spacing-6)]">
           {/* 侧边栏标签列表 - 玻璃卡片风格 */}
-          <div
-            className="glass-ultra-light hidden h-fit max-h-screen max-w-[280px] min-w-[280px] flex-wrap overflow-auto sm:flex"
-            style={{
-              borderRadius: 'var(--radius-lg)',
-              padding: 'var(--spacing-4)',
-              position: 'sticky',
-              top: 'var(--spacing-20)',
-            }}
-          >
-            <div style={{ padding: 'var(--spacing-2)' }}>
+          <div className="glass-ultra-light sticky top-[var(--spacing-20)] hidden h-fit max-h-screen max-w-[280px] min-w-[280px] flex-wrap overflow-auto rounded-[var(--radius-lg)] p-[var(--spacing-4)] sm:flex">
+            <div className="p-[var(--spacing-2)]">
               {pathname.startsWith('/blog') ? (
-                <h3
-                  className="text-primary-500 font-bold uppercase"
-                  style={{ marginBottom: 'var(--spacing-3)' }}
-                >
+                <h3 className="text-primary-500 mb-[var(--spacing-3)] font-bold uppercase">
                   All Posts
                 </h3>
               ) : (
                 <Link
                   href={`/blog`}
-                  className="hover:text-primary-500 dark:hover:text-primary-500 transition-colors-fast block font-bold text-gray-700 uppercase dark:text-gray-300"
-                  style={{ marginBottom: 'var(--spacing-3)' }}
+                  className="transition-colors-fast hover:text-primary-500 dark:hover:text-primary-500 mb-[var(--spacing-3)] block font-bold text-gray-700 uppercase dark:text-gray-300"
                 >
                   All Posts
                 </Link>
@@ -164,24 +126,13 @@ export default function ListLayoutWithTags({
                   return (
                     <li key={t}>
                       {isActive ? (
-                        <span
-                          className="text-primary-500 block text-sm font-bold uppercase"
-                          style={{
-                            padding: 'var(--spacing-2) var(--spacing-3)',
-                            borderRadius: 'var(--radius-md)',
-                            backgroundColor: 'var(--glass-bg-tinted-primary)',
-                          }}
-                        >
+                        <span className="text-primary-500 block rounded-[var(--radius-md)] bg-[var(--glass-bg-tinted-primary)] px-[var(--spacing-3)] py-[var(--spacing-2)] text-sm font-bold uppercase">
                           {`${t} (${tagCounts[t]})`}
                         </span>
                       ) : (
                         <Link
                           href={`/tags/${slug(t)}`}
-                          className="hover:text-primary-500 dark:hover:text-primary-500 transition-colors-fast block text-sm font-medium text-gray-500 uppercase dark:text-gray-300"
-                          style={{
-                            padding: 'var(--spacing-2) var(--spacing-3)',
-                            borderRadius: 'var(--radius-md)',
-                          }}
+                          className="transition-colors-fast hover:text-primary-500 dark:hover:text-primary-500 block rounded-[var(--radius-md)] px-[var(--spacing-3)] py-[var(--spacing-2)] text-sm font-medium text-gray-500 uppercase dark:text-gray-300"
                           aria-label={`View posts tagged ${t}`}
                         >
                           {`${t} (${tagCounts[t]})`}
@@ -200,13 +151,7 @@ export default function ListLayoutWithTags({
                 const { path, date, title, summary, tags } = post
                 return (
                   <li key={path}>
-                    <article
-                      className="glass-ultra-light hover:glass-light transition-all duration-300"
-                      style={{
-                        borderRadius: 'var(--radius-lg)',
-                        padding: 'var(--spacing-5)',
-                      }}
-                    >
+                    <article className="glass-ultra-light hover:glass-light rounded-[var(--radius-lg)] p-[var(--spacing-5)] transition-all duration-300">
                       <div className="flex flex-col space-y-2">
                         <dl>
                           <dt className="sr-only">Published on</dt>

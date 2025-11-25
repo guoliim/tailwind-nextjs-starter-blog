@@ -32,13 +32,7 @@ export default function Home({ posts }) {
             const { slug, date, title, summary, tags } = post
             return (
               <li key={slug}>
-                <article
-                  className="glass-ultra-light hover:glass-light transition-all duration-300"
-                  style={{
-                    borderRadius: 'var(--radius-lg)',
-                    padding: 'var(--spacing-6)',
-                  }}
-                >
+                <article className="glass-ultra-light hover:glass-light rounded-[var(--radius-lg)] p-[var(--spacing-6)] transition-all duration-300">
                   <div className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
                     <dl>
                       <dt className="sr-only">Published on</dt>

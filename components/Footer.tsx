@@ -11,22 +11,10 @@ import SocialIcon from '@/components/social-icons'
  */
 export default function Footer() {
   return (
-    <footer
-      style={{
-        marginTop: 'var(--spacing-section-md)',
-        paddingTop: 'var(--spacing-8)',
-        paddingBottom: 'var(--spacing-8)',
-      }}
-    >
+    <footer className="mt-[var(--spacing-section-md)] py-[var(--spacing-8)]">
       <div className="flex flex-col items-center">
         {/* 社交图标 - 玻璃胶囊容器 */}
-        <div
-          className="glass-pill mb-6 flex items-center"
-          style={{
-            gap: 'var(--spacing-3)',
-            padding: 'var(--spacing-2) var(--spacing-4)',
-          }}
-        >
+        <div className="glass-pill mb-6 flex items-center gap-[var(--spacing-3)] px-[var(--spacing-4)] py-[var(--spacing-2)]">
           <SocialIcon kind="mail" href={`mailto:${siteMetadata.email}`} size={5} />
           <SocialIcon kind="github" href={siteMetadata.github} size={5} />
           <SocialIcon kind="facebook" href={siteMetadata.facebook} size={5} />
@@ -42,34 +30,21 @@ export default function Footer() {
         </div>
 
         {/* 版权信息 */}
-        <div
-          className="flex flex-wrap items-center justify-center"
-          style={{
-            marginBottom: 'var(--spacing-2)',
-            gap: 'var(--spacing-2)',
-            fontSize: 'var(--font-size-sm)',
-            color: 'var(--color-text-tertiary)',
-          }}
-        >
+        <div className="mb-[var(--spacing-2)] flex flex-wrap items-center justify-center gap-[var(--spacing-2)] text-[length:var(--font-size-sm)] text-[var(--color-text-tertiary)]">
           <span>{siteMetadata.author}</span>
           <span aria-hidden="true">•</span>
           <span>{`© ${new Date().getFullYear()}`}</span>
           <span aria-hidden="true">•</span>
-          <Link href="/" className="hover:text-primary-500 transition-colors-fast">
+          <Link href="/" className="transition-colors-fast hover:text-primary-500">
             {siteMetadata.title}
           </Link>
         </div>
 
         {/* 主题归属 */}
-        <div
-          style={{
-            fontSize: 'var(--font-size-xs)',
-            color: 'var(--color-text-tertiary)',
-          }}
-        >
+        <div className="text-[length:var(--font-size-xs)] text-[var(--color-text-tertiary)]">
           <Link
             href="https://github.com/timlrx/tailwind-nextjs-starter-blog"
-            className="hover:text-primary-500 transition-colors-fast"
+            className="transition-colors-fast hover:text-primary-500"
           >
             based on Tailwind Nextjs Theme
           </Link>

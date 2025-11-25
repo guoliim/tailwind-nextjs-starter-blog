@@ -15,46 +15,20 @@ import SearchButton from './SearchButton'
  * - WWDC 2025: 统一的圆角系统
  */
 const Header = () => {
-  // 基础类名
-  let headerClass = 'flex items-center w-full justify-between transition-all duration-300'
-  if (siteMetadata.stickyNav) {
-    headerClass += ' sticky top-0 z-50'
-  }
-
-  // Liquid Glass 轻微风格 - 参考 ip.skk.moe（极简，无 border/shadow）
-  // 使用 CSS 变量确保 dark mode 自动适配
-  const headerStyle = siteMetadata.stickyNav
-    ? {
-        // Liquid Glass 效果 - 轻微模糊 + 饱和度增强
-        backgroundColor: 'var(--glass-bg-light)',
-        backdropFilter: 'blur(var(--glass-blur-md)) saturate(180%)',
-        WebkitBackdropFilter: 'blur(var(--glass-blur-md)) saturate(180%)',
-        // 内边距
-        padding: 'var(--spacing-3) var(--spacing-4)',
-        // 移除 border 和 shadow - 参考 ip.skk.moe 极简风格
-      }
-    : {
-        backgroundColor: 'var(--color-surface-base)',
-        padding: 'var(--spacing-4)',
-      }
+  const baseClass = 'flex w-full items-center justify-between transition-all duration-300'
+  const stickyClass = siteMetadata.stickyNav
+    ? 'sticky top-0 z-50 bg-[var(--glass-bg-light)] backdrop-blur-[var(--glass-blur-md)] backdrop-saturate-[180%] px-[var(--spacing-4)] py-[var(--spacing-3)]'
+    : 'bg-[var(--color-surface-base)] p-[var(--spacing-4)]'
 
   return (
-    <header className={headerClass} style={headerStyle}>
+    <header className={`${baseClass} ${stickyClass}`}>
       <Link href="/" aria-label={siteMetadata.headerTitle}>
         <div className="flex items-center justify-between">
-          <div style={{ marginRight: 'var(--spacing-3)' }}>
+          <div className="mr-[var(--spacing-3)]">
             <Logo />
           </div>
           {typeof siteMetadata.headerTitle === 'string' ? (
-            <div
-              className="hidden h-6 sm:block"
-              style={{
-                fontSize: 'var(--font-size-xl)',
-                fontWeight: 'var(--font-weight-semibold)',
-                color: 'var(--color-text-primary)',
-                letterSpacing: 'var(--tracking-tight)',
-              }}
-            >
+            <div className="hidden h-6 text-[length:var(--font-size-xl)] font-semibold tracking-[var(--tracking-tight)] text-[var(--color-text-primary)] sm:block">
               {siteMetadata.headerTitle}
             </div>
           ) : (
@@ -62,48 +36,23 @@ const Header = () => {
           )}
         </div>
       </Link>
-      <div
-        className="flex items-center"
-        style={{
-          gap: 'var(--spacing-3)',
-          lineHeight: 'var(--leading-normal)',
-        }}
-      >
+      <div className="flex items-center gap-[var(--spacing-3)] leading-[var(--leading-normal)]">
         {/* 统一胶囊容器 - 导航 + 工具按钮合并，参考 ip.skk.moe */}
-        <nav
-          className="glass-pill no-scrollbar hidden items-center overflow-x-auto sm:flex"
-          style={{
-            gap: 'var(--spacing-1)',
-            padding: 'var(--spacing-1) var(--spacing-2)',
-          }}
-        >
+        <nav className="glass-pill no-scrollbar hidden items-center gap-[var(--spacing-1)] overflow-x-auto px-[var(--spacing-2)] py-[var(--spacing-1)] sm:flex">
           {headerNavLinks
             .filter((link) => link.href !== '/')
             .map((link) => (
               <Link
                 key={link.title}
                 href={link.href}
-                className="hover:text-primary-500 transition-colors-fast"
-                style={{
-                  fontWeight: 'var(--font-weight-medium)',
-                  color: 'var(--color-text-secondary)',
-                  fontSize: 'var(--font-size-sm)',
-                  whiteSpace: 'nowrap',
-                  padding: 'var(--spacing-1) var(--spacing-3)',
-                  borderRadius: 'var(--radius-md)',
-                }}
+                className="transition-colors-fast hover:text-primary-500 rounded-[var(--radius-md)] px-[var(--spacing-3)] py-[var(--spacing-1)] text-[length:var(--font-size-sm)] font-medium whitespace-nowrap text-[var(--color-text-secondary)]"
               >
                 {link.title}
               </Link>
             ))}
           {/* 分隔线 */}
           <div
-            style={{
-              width: '1px',
-              height: '16px',
-              backgroundColor: 'var(--glass-border-subtle)',
-              margin: '0 var(--spacing-1)',
-            }}
+            className="mx-[var(--spacing-1)] h-4 w-px bg-[var(--glass-border-subtle)]"
             aria-hidden="true"
           />
           {/* 工具按钮 */}
