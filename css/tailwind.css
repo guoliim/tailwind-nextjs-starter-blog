@@ -773,6 +773,103 @@ input:-webkit-autofill:focus {
     color 600000s 0s;
 }
 
+/* ========================================
+   KBAR SEARCH MODAL - Liquid Glass Style
+   ======================================== */
+
+/* Backdrop overlay */
+[data-kbar-portal] > div:first-child {
+  background: var(--color-surface-overlay) !important;
+  backdrop-filter: blur(4px);
+}
+
+/* Main search container */
+[data-kbar-portal] [role='dialog'] {
+  background: var(--glass-bg-light-strong) !important;
+  backdrop-filter: blur(var(--glass-blur-lg)) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(var(--glass-blur-lg)) saturate(180%) !important;
+  border: 1px solid var(--glass-border-subtle) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--glass-shadow-strong) !important;
+  overflow: hidden;
+}
+
+/* Search input */
+[data-kbar-portal] input {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid var(--glass-border-subtle) !important;
+  padding: var(--spacing-4) !important;
+  font-size: var(--font-size-base) !important;
+  color: var(--color-text-primary) !important;
+}
+
+[data-kbar-portal] input::placeholder {
+  color: var(--color-text-placeholder) !important;
+}
+
+/* Results container */
+[data-kbar-portal] [role='listbox'] {
+  padding: var(--spacing-2) !important;
+}
+
+/* Result items */
+[data-kbar-portal] [role='option'] {
+  padding: var(--spacing-3) var(--spacing-4) !important;
+  border-radius: var(--radius-md) !important;
+  margin-bottom: var(--spacing-1) !important;
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+/* Active/focused result item */
+[data-kbar-portal] [role='option'][data-active-item='true'],
+[data-kbar-portal] [role='option']:hover {
+  background: var(--glass-bg-tinted-primary) !important;
+}
+
+/* Result item text */
+[data-kbar-portal] [role='option'] > div:first-child {
+  color: var(--color-text-primary) !important;
+  font-weight: var(--font-weight-medium);
+}
+
+/* Result item subtitle */
+[data-kbar-portal] [role='option'] > div:last-child {
+  color: var(--color-text-secondary) !important;
+  font-size: var(--font-size-sm) !important;
+}
+
+/* Section headers */
+[data-kbar-portal] [role='group'] > div:first-child {
+  padding: var(--spacing-2) var(--spacing-4) !important;
+  font-size: var(--font-size-xs) !important;
+  font-weight: var(--font-weight-semibold) !important;
+  color: var(--color-text-tertiary) !important;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+/* Keyboard shortcuts */
+[data-kbar-portal] kbd {
+  background: var(--glass-bg-ultra-light) !important;
+  border: 1px solid var(--glass-border-subtle) !important;
+  border-radius: var(--radius-sm) !important;
+  padding: var(--spacing-0_5) var(--spacing-2) !important;
+  font-size: var(--font-size-xs) !important;
+  font-family: var(--font-mono) !important;
+  color: var(--color-text-secondary) !important;
+}
+
+/* No results message */
+[data-kbar-portal] [role='listbox']:empty::after {
+  content: 'No results found';
+  display: block;
+  padding: var(--spacing-8);
+  text-align: center;
+  color: var(--color-text-tertiary);
+}
+
 .katex-display {
   overflow: auto hidden;
 }
