@@ -37,7 +37,7 @@ const Header = () => {
         </div>
       </Link>
       <div className="flex items-center gap-[var(--spacing-3)] leading-[var(--leading-normal)]">
-        {/* 统一胶囊容器 - 导航 + 工具按钮合并，参考 ip.skk.moe */}
+        {/* 统一胶囊容器 - 导航链接，参考 ip.skk.moe */}
         <nav className="glass-pill no-scrollbar hidden items-center gap-[var(--spacing-1)] overflow-x-auto px-[var(--spacing-2)] py-[var(--spacing-1)] sm:flex">
           {headerNavLinks
             .filter((link) => link.href !== '/')
@@ -55,10 +55,13 @@ const Header = () => {
             className="mx-[var(--spacing-1)] h-4 w-px bg-[var(--glass-border-subtle)]"
             aria-hidden="true"
           />
-          {/* 工具按钮 */}
+          {/* 搜索按钮 */}
           <SearchButton />
-          <ThemeSwitch />
         </nav>
+        {/* 主题切换 - 放在 nav 外面避免 overflow 裁剪下拉菜单 */}
+        <div className="hidden sm:block">
+          <ThemeSwitch />
+        </div>
         <MobileNav />
       </div>
     </header>
