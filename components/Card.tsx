@@ -61,12 +61,12 @@ const Card = ({ title, description, imgSrc, href }: CardProps) => (
         {href && (
           <Link
             href={href}
-            className="group transition-colors-fast inline-flex items-center text-[length:var(--font-size-sm)] leading-[var(--leading-normal)] font-[var(--font-weight-medium)] text-[var(--color-text-link)]"
+            className="glass-pill group transition-colors-fast hover:text-primary-500 dark:hover:text-primary-400 inline-flex items-center px-[var(--spacing-4)] py-[var(--spacing-2)] text-[length:var(--font-size-sm)] text-gray-600 dark:text-gray-400"
             aria-label={`Link to ${title}`}
           >
             Learn more
             <span
-              className="ml-1 transition-transform duration-200 group-hover:translate-x-1"
+              className="ml-2 transition-transform duration-200 group-hover:translate-x-1"
               aria-hidden="true"
             >
               &rarr;

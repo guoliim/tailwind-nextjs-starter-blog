@@ -63,21 +63,19 @@ export default function Home({ posts }) {
                           </div>
                         )}
                       </div>
-                      <div className="text-base leading-6 font-medium">
-                        <Link
-                          href={`/blog/${slug}`}
-                          className="group text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 inline-flex items-center"
-                          aria-label={`Read more: "${title}"`}
+                      <Link
+                        href={`/blog/${slug}`}
+                        className="glass-pill group transition-colors-fast hover:text-primary-500 dark:hover:text-primary-400 inline-flex items-center px-[var(--spacing-4)] py-[var(--spacing-2)] text-[length:var(--font-size-sm)] text-gray-600 dark:text-gray-400"
+                        aria-label={`Read more: "${title}"`}
+                      >
+                        Read more
+                        <span
+                          className="ml-2 transition-transform duration-200 group-hover:translate-x-1"
+                          aria-hidden="true"
                         >
-                          Read more
-                          <span
-                            className="ml-1 transition-transform duration-200 group-hover:translate-x-1"
-                            aria-hidden="true"
-                          >
-                            &rarr;
-                          </span>
-                        </Link>
-                      </div>
+                          &rarr;
+                        </span>
+                      </Link>
                     </div>
                   </div>
                 </article>
@@ -87,13 +85,19 @@ export default function Home({ posts }) {
         </ul>
       </div>
       {posts.length > MAX_DISPLAY && (
-        <div className="flex justify-end text-base leading-6 font-medium">
+        <div className="flex justify-end pt-[var(--spacing-4)]">
           <Link
             href="/blog"
-            className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+            className="glass-pill group transition-colors-fast hover:text-primary-500 dark:hover:text-primary-400 inline-flex items-center px-[var(--spacing-4)] py-[var(--spacing-2)] text-[length:var(--font-size-sm)] text-gray-600 dark:text-gray-400"
             aria-label="All posts"
           >
-            All Posts &rarr;
+            All Posts
+            <span
+              className="ml-2 transition-transform duration-200 group-hover:translate-x-1"
+              aria-hidden="true"
+            >
+              &rarr;
+            </span>
           </Link>
         </div>
       )}
