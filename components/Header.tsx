@@ -17,8 +17,8 @@ import SearchButton from './SearchButton'
 const Header = () => {
   const baseClass = 'flex w-full items-center justify-between transition-all duration-300'
   const stickyClass = siteMetadata.stickyNav
-    ? 'sticky top-0 z-50 bg-[var(--glass-bg-light)] backdrop-blur-[var(--glass-blur-md)] backdrop-saturate-[180%] px-[var(--spacing-4)] py-[var(--spacing-3)]'
-    : 'bg-[var(--color-surface-base)] p-[var(--spacing-4)]'
+    ? 'sticky top-0 z-50 backdrop-blur-[var(--glass-blur-md)] backdrop-saturate-[180%] px-[var(--spacing-4)] py-[var(--spacing-3)]'
+    : 'p-[var(--spacing-4)]'
 
   return (
     <header className={`${baseClass} ${stickyClass}`}>
