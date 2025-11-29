@@ -1,0 +1,128 @@
+---
+title: 2025-11-29
+date: '2025-11-29'
+tags: ['VPS', 'BF', 'ISP', 'tradingview']
+draft: false
+---
+
+- 今年黑五主要的需求是购买质量更好的落地 IP，不然访问 YOUTUBE，CLAUDE, CHATGPT 等不是被送中就是被转圈 RECAPTCHA 折磨人
+- 落地 IP 的需求条件是
+  1. 价格合适，由于只承担落地出口任务，不需要对线路质量负责，所以成本要控制到更小
+  2. IP 质量更高，不会被各大网站列入风险IP行列
+  3. 带宽更好，流量充足
+- 最终保留下来的 VPS 有 BageVM 和 ZgoCloud
+  1. BageVM 购买的是 1C1G 1000Mbps 20GB SSD 4TB/M 方案，价格 20刀/年，落地 LAX，IP 通过 IPINFO 检测为双 ISP，
+
+  ```text
+  一、基础信息（Maxmind 数据库）
+  自治系统号：             AS63150
+  组织：                  BAGE
+  坐标：                  118°16′15″W, 34°3′5″N
+  地图：                  https://check.place/34.0515,-118.2707,15,cn
+  城市：                  加州, 洛杉矶, 90017
+  使用地：                [US]美国, [NA]北美洲
+  注册地：                [US]美国
+  时区：                  America/Los_Angeles
+  IP类型：                 原生IP
+  二、IP类型属性
+  数据库：      IPinfo    ipregistry    ipapi    IP2Location   AbuseIPDB
+  使用类型：     家宽        家宽        机房        机房        家宽
+  公司类型：     家宽        家宽        机房        机房
+  三、风险评分
+  风险等级：      极低         低       中等       高         极高
+  IP2Location：   3|低风险
+  Scamalytics：  0|低风险
+  ipapi：                            1.95%|较高风险
+  AbuseIPDB：    0|低风险
+  DB-IP：         |低风险
+  四、风险因子
+  库： IP2Location ipapi ipregistry IPQS Scamalytics ipdata IPinfo IPWHOIS
+  地区：    [US]    [US]    [US]     无     [US]    [US]    [US]    [US]
+  代理：     否      否      否      无      否      否      否      否
+  Tor：      否      否      否      无      否      否      否      否
+  VPN：      否      否      否      无      否      无      否      否
+  服务器：   是      是      否      无      否      否      否      否
+  滥用：     否      否      否      无      否      否      无      无
+  机器人：   否      否      无      无      否      无      无      无
+  五、流媒体及AI服务解锁检测
+  服务商：  TikTok   Disney+  Netflix Youtube  AmazonPV  Spotify  ChatGPT
+  状态：     解锁     解锁     解锁     解锁     解锁     解锁     解锁
+  地区：     [US]     [US]     [US]     [US]     [US]     [US]     [US]
+  方式：     原生     原生     原生     原生     原生     原生     原生
+  六、邮局连通性及黑名单检测
+  本地25端口出站：阻断
+  通信：远端25端口不可达​
+  IP地址黑名单数据库：  有效 439   正常 393   已标记 46   黑名单 0
+  ```
+
+  质量其实来说很高了，但是 ipapi 分数有点高，有担忧
+  2. ZgoCloud 的是去年买的 2C2G 1000Mbps 40G NVMe SSD 4TB/M 方案，价格 25刀/年，落地 LAX，IP 通过 IPINFO 检测为单 ISP，
+
+  ```text
+  一、基础信息（Maxmind 数据库）
+  自治系统号：             AS8796
+  组织：                  FD-298-8796
+  坐标：                  118°14′38″W, 34°3′16″N
+  地图：                  https://check.place/34.0544,-118.244,15,cn
+  城市：                  加州, 洛杉矶, 90060
+  使用地：                [US]美国, [NA]北美洲
+  注册地：                [US]美国
+  时区：                  America/Los_Angeles
+  IP类型：                 原生IP
+  二、IP类型属性
+  数据库：      IPinfo    ipregistry    ipapi    IP2Location   AbuseIPDB
+  使用类型：     家宽        家宽        商业        机房        家宽
+  公司类型：     商业        家宽        商业        机房
+  三、风险评分
+  风险等级：      极低         低       中等       高         极高
+  IP2Location：   3|低风险
+  Scamalytics：   2|低风险
+  ipapi：        0.24%|低风险
+  AbuseIPDB：    0|低风险
+  DB-IP：         |低风险
+  四、风险因子
+  库： IP2Location ipapi ipregistry IPQS Scamalytics ipdata IPinfo IPWHOIS
+  地区：    [US]    [US]    [US]     无     [US]    [US]    [US]    [US]
+  代理：     否      否      否      无      否      否      否      否
+  Tor：      否      否      否      无      否      否      否      否
+  VPN：      否      否      否      无      否      无      否      否
+  服务器：   是      是      否      无      是      否      否      否
+  滥用：     否      否      否      无      否      否      无      无
+  机器人：   否      否      无      无      否      无      无      无
+  五、流媒体及AI服务解锁检测
+  服务商：  TikTok   Disney+  Netflix Youtube  AmazonPV  Spotify  ChatGPT
+  状态：     解锁     解锁     解锁     解锁     屏蔽     解锁     解锁
+  地区：     [US]     [US]     [US]     [US]              [US]     [US]
+  方式：     原生     原生     原生     原生              原生     原生
+  六、邮局连通性及黑名单检测
+  本地25端口出站：阻断
+  通信：+Gmail+Outlook+Yahoo+Apple+QQ+MailRU+AOL-GMX-MailCOM+163+Sohu+Sina
+  IP地址黑名单数据库：  有效 439   正常 391   已标记 46   黑名单 2
+  ```
+
+  担忧的是解锁有失败以及有三处标记为服务器
+  - 通过与 Claude Opus 4.5 交流，一般分析 IP 质量与风险还有
+    1. 历史滥用记录 — 该 IP 或所属 IP 段是否有过垃圾邮件、爬虫、攻击等行为
+    2. ASN 整体信誉 — 某些运营商的 IP 段整体信誉较差
+    3. IP 共享程度 — CGNAT 下大量用户共享同一 IP，容易被连坐
+    4. 地理位置异常 — IP 归属地与访问行为不一致
+    5. 黑名单数据库 — 是否被 Spamhaus、AbuseIPDB 等收录
+    6. 主流 IP 情报厂商
+
+       第一梯队:
+       - MaxMind — 老牌厂商，运营超过 20 年，开发了 MMDB 数据库格式，是行业标准
+       - IPinfo — 后起之秀，根据网站使用量统计，IPinfo 比 MaxMind 流行约 1.8 倍
+
+       第二梯队:
+       - IP2Location（2002 年成立）
+       - ipdata
+       - IPQualityScore（专注欺诈检测）
+
+       MaxMind 是老牌标准，IPinfo 是当前最流行的选择，ipdata 相对小众
+  - 与 Claude 讨论后，分出的结论是 BageVM 是"双 ISP + 零黑名单 + Scamalytics 0 分"的组合，属于高质量住宅 IP；ZgoCloud 虽然大部分指标也不错，但单 ISP + 有黑名单记录 + 部分流媒体屏蔽，说明已经有一定的"污染"。
+  - 所以 主力落地 IP 应该是使用 BageVM，ZgoCloud 在 12月初到期后应该就是不再续了，还在考虑中
+  - 但是在 ios safari private 访问 google 还是会被 RECAPTCHA，一种说法是 APPLE 激进的隐私策略尽可能的抹除了真人特征，一种说法是 IP 质量还是不够
+    1. 做了简单测试，在 ios safari private 模式下先用 手指 滑动停留几秒再访问 google 就不会出现 RECAPTCHA
+    2. 记得以前体验号称[家宽IP](https://voyracloud.com/)时，在 ios safari private 访问 google 没有出现 RECAPTCHA
+    3. 所以对落地 IP 质量还是有担忧，但碍于成本，综合下来 BageVM 目前时更合适的
+  - 今年又买了 TRADINGVIEW 的黑五活动，PREMIUM 会员 217 刀，美股上要10倍赚，才行啊

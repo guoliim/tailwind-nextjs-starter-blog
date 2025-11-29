@@ -1,10 +1,13 @@
 {
-  "spy500": 1,
+  "vps": 1,
+  "bf": 1,
+  "isp": 1,
+  "spy500": 2,
   "hy2": 1,
   "port-hopping": 1,
-  "again": 1,
   "bochk": 1,
   "warp": 1,
   "google": 1,
-  "ip": 1
+  "ip": 1,
+  "again": 1
 }
