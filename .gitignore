@@ -45,3 +45,6 @@ yarn-error.log*
 
 # Content Collections
 .content-collections
+
+# Claude Code
+.claude
