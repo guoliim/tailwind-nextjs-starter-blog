@@ -1,8 +1,8 @@
 'use client'
 
-import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react'
+import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
-import { Fragment, useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from './Link'
 import headerNavLinks from '@/data/headerNavLinks'
 
@@ -49,90 +49,72 @@ const MobileNav = () => {
           />
         </svg>
       </button>
-      <Transition appear show={navShow} as={Fragment} unmount={false}>
-        <Dialog as="div" onClose={onToggleNav} unmount={false}>
-          <TransitionChild
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-            unmount={false}
-          >
-            {/* Backdrop with glass blur effect */}
-            <div className="fixed inset-0 z-60" style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }} />
-          </TransitionChild>
+      <Dialog as="div" open={navShow} onClose={onToggleNav}>
+        <DialogBackdrop
+          transition
+          className="fixed inset-0 z-60 transition duration-300 ease-out data-closed:opacity-0"
+          style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }}
+        />
 
-          <TransitionChild
-            as={Fragment}
-            enter="transition ease-in-out duration-300 transform"
-            enterFrom="translate-x-full opacity-0"
-            enterTo="translate-x-0 opacity-100"
-            leave="transition ease-in duration-200 transform"
-            leaveFrom="translate-x-0 opacity-100"
-            leaveTo="translate-x-full opacity-0"
-            unmount={false}
+        <DialogPanel
+          transition
+          className="glass-strong fixed top-0 left-0 z-70 h-full w-full transition duration-300 ease-in-out data-closed:translate-x-full data-closed:opacity-0"
+        >
+          <nav
+            ref={navRef}
+            className="flex h-full basis-0 flex-col items-start overflow-y-auto text-left"
+            style={{
+              marginTop: 'var(--spacing-8)',
+              paddingTop: 'var(--spacing-2)',
+              paddingLeft: 'var(--spacing-12)',
+            }}
           >
-            <DialogPanel className="glass-strong fixed top-0 left-0 z-70 h-full w-full duration-300">
-              <nav
-                ref={navRef}
-                className="flex h-full basis-0 flex-col items-start overflow-y-auto text-left"
+            {headerNavLinks.map((link) => (
+              <Link
+                key={link.title}
+                href={link.href}
+                className="transition-colors-fast outline outline-0"
                 style={{
-                  marginTop: 'var(--spacing-8)',
+                  marginBottom: 'var(--spacing-4)',
                   paddingTop: 'var(--spacing-2)',
-                  paddingLeft: 'var(--spacing-12)',
-                }}
-              >
-                {headerNavLinks.map((link) => (
-                  <Link
-                    key={link.title}
-                    href={link.href}
-                    className="transition-colors-fast outline outline-0"
-                    style={{
-                      marginBottom: 'var(--spacing-4)',
-                      paddingTop: 'var(--spacing-2)',
-                      paddingBottom: 'var(--spacing-2)',
-                      paddingRight: 'var(--spacing-4)',
-                      fontSize: 'var(--font-size-2xl)',
-                      fontWeight: 'var(--font-weight-bold)',
-                      letterSpacing: 'var(--tracking-widest)',
-                      color: 'var(--color-text-primary)',
-                    }}
-                    onClick={onToggleNav}
-                  >
-                    {link.title}
-                  </Link>
-                ))}
-              </nav>
-
-              <button
-                className="glass-subtle fixed z-80 transition-all duration-200"
-                style={{
-                  top: 'var(--spacing-7)',
-                  right: 'var(--spacing-4)',
-                  padding: 'var(--spacing-4)',
+                  paddingBottom: 'var(--spacing-2)',
+                  paddingRight: 'var(--spacing-4)',
+                  fontSize: 'var(--font-size-2xl)',
+                  fontWeight: 'var(--font-weight-bold)',
+                  letterSpacing: 'var(--tracking-widest)',
                   color: 'var(--color-text-primary)',
-                  borderRadius: 'var(--radius-md)',
-                  width: '3.5rem',
-                  height: '3.5rem',
                 }}
-                aria-label="Toggle Menu"
                 onClick={onToggleNav}
               >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                  <path
-                    fillRule="evenodd"
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
-            </DialogPanel>
-          </TransitionChild>
-        </Dialog>
-      </Transition>
+                {link.title}
+              </Link>
+            ))}
+          </nav>
+
+          <button
+            className="glass-subtle fixed z-80 transition-all duration-200"
+            style={{
+              top: 'var(--spacing-7)',
+              right: 'var(--spacing-4)',
+              padding: 'var(--spacing-4)',
+              color: 'var(--color-text-primary)',
+              borderRadius: 'var(--radius-md)',
+              width: '3.5rem',
+              height: '3.5rem',
+            }}
+            aria-label="Toggle Menu"
+            onClick={onToggleNav}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path
+                fillRule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+        </DialogPanel>
+      </Dialog>
     </>
   )
 }
