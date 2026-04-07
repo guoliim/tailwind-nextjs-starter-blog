@@ -22,7 +22,7 @@
       "@/data/*": ["data/*"],
       "@/layouts/*": ["layouts/*"],
       "@/css/*": ["css/*"],
-      "contentlayer/generated": ["./.contentlayer/generated"],
+      "content-collections": ["./.content-collections/generated"],
       "pliny/*": ["node_modules/pliny/*"]
     },
     "types": ["node", "react", "mdx"],

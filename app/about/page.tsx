@@ -1,4 +1,4 @@
-import { Authors, allAuthors } from 'contentlayer/generated'
+import { Author as Authors, allAuthors } from 'content-collections'
 import { MDXLayoutRenderer } from 'pliny/mdx-components'
 import AuthorLayout from '@/layouts/AuthorLayout'
 import { coreContent } from 'pliny/utils/contentlayer'
