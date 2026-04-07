@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "incremental": true,
     "target": "ES6",
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -24,6 +25,7 @@
       "contentlayer/generated": ["./.contentlayer/generated"],
       "pliny/*": ["node_modules/pliny/*"]
     },
+    "types": ["node", "react", "mdx"],
     "plugins": [
       {
         "name": "next"
